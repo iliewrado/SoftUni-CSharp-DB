@@ -87,7 +87,6 @@ SELECT
 		,DENSE_RANK() OVER(PARTITION BY Salary ORDER BY EmployeeID)
 		AS [Rank]
 		FROM Employees
-		WHERE Salary BETWEEN 10000 AND 50000)
-		AS [RankSubQuery]
+		WHERE Salary BETWEEN 10000 AND 50000) AS [RankSubQuery]
 WHERE [Rank] = 2
 ORDER BY Salary DESC
