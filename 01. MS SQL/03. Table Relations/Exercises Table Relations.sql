@@ -8,13 +8,12 @@ CREATE TABLE [Persons](
 [PersonID] INT IDENTITY (1, 1) NOT NULL
 ,[FirstName] NVARCHAR(50) NOT NULL
 ,[Salary] DECIMAL(8, 2)
-,[PassportID] INT UNIQUE NOT NULL
-)
+,[PassportID] INT UNIQUE NOT NULL)
+
 
 CREATE TABLE [Passports](
 [PassportID] INT IDENTITY(101, 1) NOT NULL
-,[PassportNumber] NVARCHAR(10) NOT NULL
-)
+,[PassportNumber] NVARCHAR(10) NOT NULL)
 GO
 
 ALTER TABLE [Passports]
