@@ -113,8 +113,9 @@ FROM [Employees]
 ORDER BY [HireDate] DESC
 
 --21.	Increase Salaries
-SELECT *
-  FROM [Departments]
+SELECT 
+*
+FROM [Departments]
 	WHERE [Name] IN ('Engineering', 'Tool Design', 'Marketing', 'Information Services')
 
 UPDATE [Employees]
