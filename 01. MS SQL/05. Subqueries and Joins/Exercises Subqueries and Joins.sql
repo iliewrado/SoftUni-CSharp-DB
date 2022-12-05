@@ -110,14 +110,69 @@ LEFT JOIN Departments AS D ON E.DepartmentID = D.DepartmentID
 ORDER BY E.EmployeeID ASC
 
 -- 11. Min Average Salary
+SELECT
+	MIN(DT.AverageSalary) AS [MinAverageSalary]
+FROM(
+	SELECT 
+	AVG(Salary) AS [AverageSalary]
+	FROM Employees 
+	GROUP BY DepartmentID) AS DT
 
+
+USE [Geography]
 -- 12. Highest Peaks in Bulgaria
+SELECT
+MC.CountryCode
+,M.MountainRange
+,P.PeakName
+,P.Elevation
+FROM Peaks AS P
+JOIN Mountains AS M ON P.MountainId = M.Id
+JOIN MountainsCountries AS MC ON M.Id = MC.MountainId
+	WHERE MC.CountryCode = 'BG' AND P.Elevation > 2835
+ORDER BY P.Elevation DESC
 
 -- 13. Count Mountain Ranges
+SELECT 
+MC.CountryCode
+,COUNT(MC.CountryCode) AS MountainRanges
+FROM Mountains AS M
+JOIN MountainsCountries AS MC ON M.Id = MC.MountainId
+WHERE MC.CountryCode = 'BG' OR MC.CountryCode = 'US' OR MC.CountryCode = 'RU'
+GROUP BY MC.CountryCode
+ORDER BY MountainRanges DESC
 
 -- 14. Countries with Rivers
+SELECT TOP 5
+C.CountryName
+,R.RiverName
+FROM Countries AS C
+JOIN Continents AS CON ON C.ContinentCode = CON.ContinentCode
+							AND CON.ContinentName = 'Africa'
+LEFT JOIN CountriesRivers AS CR ON C.CountryCode = CR.CountryCode
+LEFT JOIN Rivers AS R ON CR.RiverId = R.Id
+ORDER BY C.CountryName ASC
 
 -- 15. *Continents and Currencies
+SELECT 
+ContinentCode
+,CurrencyCode
+,CurrencyUsage
+FROM
+	(SELECT 
+	*, DENSE_RANK() OVER(PARTITION BY ContinentCode 
+						 ORDER BY CurrencyUsage DESC) AS [CR]
+	FROM
+		(SELECT 
+		CON.ContinentCode
+		,CT.CurrencyCode
+		,COUNT(CT.CurrencyCode) AS CurrencyUsage
+		FROM Continents AS CON
+		LEFT JOIN Countries AS CT ON CT.ContinentCode = CON.ContinentCode
+		GROUP BY CON.ContinentCode, CT.CurrencyCode) AS CurrencyUsageQuery
+	WHERE CurrencyUsage > 1) AS CRQ
+WHERE CR = 1
+ORDER BY ContinentCode
 
 -- 16. Countries Without Any Mountains
 
