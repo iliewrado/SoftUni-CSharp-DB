@@ -182,5 +182,16 @@ LEFT JOIN MountainsCountries AS M ON C.CountryCode = M.CountryCode
 WHERE M.MountainId IS NULL
 
 -- 17. Highest Peak and Longest River by Country
+SELECT TOP 5
+C.CountryName
+,MAX(P.Elevation) AS HighestPeakElevation
+,MAX(R.[Length]) AS LongestRiverLength
+FROM Countries AS C
+LEFT JOIN MountainsCountries AS M ON C.CountryCode = M.CountryCode
+LEFT JOIN Peaks AS P ON M.MountainId = P.MountainId
+LEFT JOIN CountriesRivers AS CR ON C.CountryCode = CR.CountryCode
+LEFT JOIN Rivers AS R ON CR.RiverId = R.Id
+GROUP BY C.CountryName 
+ORDER BY HighestPeakElevation DESC, LongestRiverLength DESC, C.CountryName
 
 -- 18. Highest Peak Name and Elevation by Country
