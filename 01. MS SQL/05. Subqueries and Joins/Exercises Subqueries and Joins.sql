@@ -175,6 +175,11 @@ WHERE CR = 1
 ORDER BY ContinentCode
 
 -- 16. Countries Without Any Mountains
+SELECT
+COUNT(C.CountryCode) AS [Count]
+FROM Countries AS C
+LEFT JOIN MountainsCountries AS M ON C.CountryCode = M.CountryCode
+WHERE M.MountainId IS NULL
 
 -- 17. Highest Peak and Longest River by Country
 
