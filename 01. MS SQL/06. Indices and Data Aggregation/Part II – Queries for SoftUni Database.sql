@@ -1,3 +1,5 @@
+-- Part II – Queries for SoftUni Database
+
 -- 13. Departments Total Salaries
 SELECT 
 DepartmentID
