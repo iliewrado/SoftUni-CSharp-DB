@@ -63,4 +63,15 @@ FROM
 WHERE SalaryRank = 3
 
 -- 19. **Salary Challenge
-
+SELECT TOP(10)
+FirstName
+,LastName
+,DepartmentID
+FROM Employees AS E
+WHERE E.Salary > 
+	(SELECT 
+	AVG(Salary) AS [Average Salary]
+	FROM Employees AS ES
+	WHERE ES.DepartmentID = E.DepartmentID
+	GROUP BY DepartmentID)
+ORDER BY E.DepartmentID
