@@ -50,7 +50,17 @@ GROUP BY ManagerID
 HAVING ManagerID IS NULL
 
 -- 18. *3rd Highest Salary
-
+SELECT DISTINCT
+DepartmentID
+,Salary
+FROM
+	(SELECT 
+	DepartmentID
+	,Salary
+	,DENSE_RANK() OVER(PARTITION BY DepartmentID ORDER BY Salary DESC)
+	AS SalaryRank
+	FROM Employees) AS SRQ
+WHERE SalaryRank = 3
 
 -- 19. **Salary Challenge
 
