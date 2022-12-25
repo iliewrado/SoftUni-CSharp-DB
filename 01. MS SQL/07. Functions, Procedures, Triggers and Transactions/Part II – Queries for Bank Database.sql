@@ -1,4 +1,28 @@
 -- Part II – Queries for Bank Database
+USE Bank
+GO
 
 -- 9.	Find Full Name
+CREATE PROC usp_GetHoldersFullName
+AS 
+BEGIN
+	SELECT 
+		CONCAT(FirstName, ' ', LastName) AS [Full Name]
+	FROM AccountHolders
+END
+GO
 
+-- 10.	People with Balance Higher Than
+CREATE PROC usp_GetHoldersWithBalanceHigherThan(@minBalance DECIMAL(18, 4))
+AS
+BEGIN
+	SELECT 
+	FirstName AS [First Name]
+	,LastName AS [Last Name]
+	FROM AccountHolders AS H
+	LEFT JOIN Accounts AS A ON H.Id = A.AccountHolderId
+	GROUP BY FirstName, LastName
+	HAVING SUM(Balance) > @minBalance
+	ORDER BY FirstName, LastName
+END
+GO
