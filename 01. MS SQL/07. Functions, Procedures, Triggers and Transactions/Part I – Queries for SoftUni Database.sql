@@ -52,7 +52,7 @@ END
 GO
 
 -- 5.	Salary Level Function
-CREATE FUNCTION ufn_GetSalaryLevel(@salary DECIMAL(18,4))
+CREATE OR ALTER FUNCTION ufn_GetSalaryLevel(@salary DECIMAL(18,4))
 RETURNS VARCHAR(10)
 AS 
 BEGIN 
@@ -86,7 +86,52 @@ END
 GO
 
 -- 7.	Define Function
-
+CREATE FUNCTION ufn_IsWordComprised(@setOfLetters VARCHAR(50), @word VARCHAR(50))
+RETURNS BIT
+AS
+BEGIN
+	DECLARE @index SMALLINT = 1;
+	WHILE(@index <= LEN(@word))
+		BEGIN
+			IF(CHARINDEX(SUBSTRING(@word, @index, 1), @setOfLetters) = 0)
+			BEGIN
+				RETURN 0
+			END
+		SET @index += 1;
+		END
+		RETURN 1
+END
+GO
 
 -- 8.	* Delete Employees and Departments
+CREATE PROC usp_DeleteEmployeesFromDepartment (@departmentId INT) 
+AS
+BEGIN
+	DELETE FROM EmployeesProjects
+		   WHERE EmployeeID IN (SELECT EmployeeID
+								    FROM Employees
+							       WHERE DepartmentID = @departmentId)
+	 UPDATE Employees
+	    SET ManagerID = NULL
+		WHERE ManagerID IN (SELECT EmployeeID
+							   FROM Employees
+							  WHERE DepartmentID = @departmentId)
+	 ALTER TABLE Departments
+	 ALTER COLUMN ManagerID INT
 
+	 UPDATE Departments
+		SET ManagerID = NULL
+		WHERE ManagerID IN (SELECT EmployeeID
+							   FROM Employees
+							  WHERE DepartmentID = @departmentID)
+	 DELETE FROM Employees
+		   WHERE DepartmentID = @departmentId
+
+	 DELETE FROM Departments
+	       WHERE DepartmentID = @departmentId
+
+	 SELECT COUNT(EmployeeId)
+	   FROM Employees
+	   WHERE DepartmentID = @departmentId
+END
+GO
