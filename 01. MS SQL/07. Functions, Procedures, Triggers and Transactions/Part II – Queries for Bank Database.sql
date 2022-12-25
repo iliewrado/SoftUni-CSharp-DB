@@ -38,3 +38,13 @@ BEGIN
 	RETURN @futureValue
 END
 GO
+
+-- 12.	Calculating Interest
+
+
+-- Part II – Queries for Diablo Database
+USE Diablo
+GO
+
+-- 13.	*Scalar Function: Cash in User Games Odd Rows
+
