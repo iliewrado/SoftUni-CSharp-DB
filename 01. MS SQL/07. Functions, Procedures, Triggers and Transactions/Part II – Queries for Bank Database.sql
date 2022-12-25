@@ -40,4 +40,17 @@ END
 GO
 
 -- 12.	Calculating Interest
-
+CREATE PROC usp_CalculateFutureValueForAccount (@accountId INT, @interestRate FLOAT)
+AS
+BEGIN
+	SELECT
+	A.Id AS [Account Id]
+	,H.FirstName AS [First Name]
+	,H.LastName AS [Last Name]
+	,A.Balance AS [Current Balance]
+	,dbo.ufn_CalculateFutureValue (A.Balance, @interestRate, 5) AS [Balance in 5 years]
+	FROM AccountHolders AS H
+	JOIN Accounts AS A ON H.Id = A.AccountHolderId
+	WHERE A.Id = @accountId
+END
+GO
