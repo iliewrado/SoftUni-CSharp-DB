@@ -1,5 +1,5 @@
 -- Part I – Queries for SoftUni Database
-USE [SoftUni]
+USE SoftUni
 GO
 
 -- 1.	Employees with Salary Above 35000
