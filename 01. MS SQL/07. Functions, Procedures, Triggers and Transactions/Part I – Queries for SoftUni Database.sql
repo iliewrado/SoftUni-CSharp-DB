@@ -135,3 +135,6 @@ BEGIN
 	   WHERE DepartmentID = @departmentId
 END
 GO
+
+-- Exercises: Triggers and Transactions
+
