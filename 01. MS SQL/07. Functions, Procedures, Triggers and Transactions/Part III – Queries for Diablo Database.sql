@@ -17,5 +17,3 @@ AS
 				WHERE G.[Name] = @gamename) AS [Rows]
 			WHERE Ordered %2 != 0)
 GO
-
--- Exercises: Triggers and Transactions
