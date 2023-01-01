@@ -99,3 +99,31 @@ BEGIN
 	FROM inserted AS I
 END
 GO
+
+-- 16.	Deposit Money
+CREATE PROC usp_DepositMoney (@AccountId INT, @MoneyAmount DECIMAL(15, 4)) 
+AS
+BEGIN 
+	BEGIN TRANSACTION
+        UPDATE Accounts
+           SET Balance += @MoneyAmount
+         WHERE Id = @AccountId
+    COMMIT
+END 
+GO
+
+-- 17. 	Withdraw Money
+CREATE PROC usp_WithdrawMoney (@AccountId INT, @MoneyAmount DECIMAL(15, 4))
+AS
+BEGIN
+	BEGIN TRANSACTION
+        UPDATE Accounts
+           SET Balance -= @MoneyAmount
+         WHERE Id = @AccountId
+    COMMIT
+END 
+GO
+
+-- 18.	Money Transfer
+
+
