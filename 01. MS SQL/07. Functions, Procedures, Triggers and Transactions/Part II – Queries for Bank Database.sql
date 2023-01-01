@@ -57,3 +57,45 @@ GO
 
 -- Exercises: Triggers and Transactions
 
+-- 14. Create Table Logs
+CREATE TABLE Logs (
+LogId INT PRIMARY KEY IDENTITY 
+,AccountId INT NOT NULL FOREIGN KEY REFERENCES Accounts (Id)
+,OldSum MONEY NOT NULL
+,NewSum MONEY NOT NULL
+)
+GO 
+
+CREATE TRIGGER tr_AddToLogsOnAccountsUpdate
+ON Accounts FOR UPDATE
+AS
+BEGIN
+	INSERT INTO Logs (AccountId, OldSum, NewSum)
+	SELECT I.Id, D.Balance, I.Balance
+	FROM inserted AS I
+	JOIN deleted AS D ON I.Id = D.Id
+	WHERE I.Balance != D.Balance
+END
+GO
+
+-- 15. Create Table Emails
+CREATE TABLE NotificationEmails (
+Id INT PRIMARY KEY IDENTITY 
+,Recipient INT NOT NULL
+,[Subject] NVARCHAR (50) NOT NULL
+,Body NVARCHAR (100) NOT NULL
+)
+GO
+
+CREATE TRIGGER tr_EmailNotifications
+ON Logs AFTER INSERT
+AS
+BEGIN 
+	INSERT INTO NotificationEmails (Recipient, [Subject], Body)
+	SELECT 
+		I.AccountId
+		,CONCAT('Balance change for account: ', I.AccountId)
+		,CONCAT('On ', GETDATE(),' your balance was changed from ', I.OldSum ,' to ', I.NewSum,'.')
+	FROM inserted AS I
+END
+GO
