@@ -80,3 +80,12 @@ VALUES
 ('Sofia', 'Bulgaria', '18 Bul. Vasil levski', '1000')
 ,('Athens', 'Greece', '4342 McDonald Avenue', '10435')
 ,('Zagreb', 'Croatia', '4333 Lauren Drive', '10000')
+
+-- 3.	Update
+UPDATE Cigars
+SET PriceForSingleCigar = PriceForSingleCigar * 1.2
+WHERE TastId = 1
+
+UPDATE Brands
+SET BrandDescription = 'New description'
+WHERE BrandDescription IS NULL
