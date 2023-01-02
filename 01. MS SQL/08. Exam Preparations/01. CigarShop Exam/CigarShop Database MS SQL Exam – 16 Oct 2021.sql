@@ -89,3 +89,38 @@ WHERE TastId = 1
 UPDATE Brands
 SET BrandDescription = 'New description'
 WHERE BrandDescription IS NULL
+
+-- 4.	Delete
+DELETE FROM Clients
+WHERE AddressId IN (
+	SELECT Id FROM Addresses
+	WHERE SUBSTRING(Country, 1, 1) = 'C')
+
+DELETE FROM Addresses
+WHERE SUBSTRING(Country, 1, 1) = 'C'
+
+-- Section 3. Querying (40 pts)
+-- You need to start with a fresh dataset, 
+-- so recreate your DB and import the sample data again (01-DDL-Data-Seeder.sql).
+
+-- 5.	Cigars by Price
+SELECT
+	CigarName
+	,PriceForSingleCigar
+	,ImageURL
+FROM Cigars
+ORDER BY PriceForSingleCigar, CigarName DESC
+
+-- 6.	Cigars by Taste
+SELECT 
+C.Id
+,C.CigarName
+,C.PriceForSingleCigar
+,T.TasteType
+,T.TasteStrength
+FROM Cigars AS C
+JOIN Tastes AS T ON C.TastId = T.Id
+WHERE T.TasteType IN ('Earthy', 'Woody')
+ORDER BY C.PriceForSingleCigar DESC
+
+
