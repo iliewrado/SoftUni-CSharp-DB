@@ -170,5 +170,43 @@ ORDER BY CiagrLength DESC
 
 
 -- Section 4. Programmability (20 pts)
-
+GO
 -- 11.	Client with Cigars
+CREATE FUNCTION udf_ClientWithCigars(@name NVARCHAR(30))
+RETURNS INT
+AS
+BEGIN
+RETURN (SELECT
+	COUNT(*)
+	FROM ClientsCigars
+	WHERE ClientId IN (SELECT
+					Id FROM Clients
+					WHERE FirstName = @name))
+END
+GO
+
+--Query
+--SELECT dbo.udf_ClientWithCigars('Betty')
+--Output
+--5
+
+-- 12.	Search for Cigar with Specific Taste
+CREATE PROC usp_SearchByTaste(@taste VARCHAR(20))
+AS
+BEGIN 
+SELECT 
+ CigarName
+,CONCAT('$', C.PriceForSingleCigar) AS Price
+,T.TasteType
+,B.BrandName
+,CONCAT(S.[Length], ' cm') AS CigarLength
+,CONCAT(S.RingRange, ' cm') AS CigarRingRange
+FROM Cigars AS C
+JOIN Tastes AS T ON C.TastId = T.Id
+JOIN Sizes AS S ON C.SizeId = S.Id
+JOIN Brands AS B ON C.BrandId = B.Id
+WHERE T.TasteType = @taste
+ORDER BY CigarLength, CigarRingRange DESC
+END
+GO
+-- EXEC usp_SearchByTaste 'Woody'
