@@ -148,7 +148,9 @@ SELECT
 	 CONCAT(C.FirstName, ' ', C.LastName) AS  FullName
 	,Country
 	,ZIP
-	,CONCAT('$', (SELECT MAX(PriceForSingleCigar) FROM Cigars)) AS CigarPrice
+	,CONCAT('$', (SELECT MAX(PriceForSingleCigar) FROM Cigars AS CG
+					JOIN ClientsCigars AS CC ON CG.Id = CC.CigarId 
+					AND CC.ClientId = C.Id)) AS CigarPrice
 FROM Clients AS C
 JOIN Addresses AS A ON C.AddressId = A.Id
 WHERE ISNUMERIC(A.ZIP) = 1
