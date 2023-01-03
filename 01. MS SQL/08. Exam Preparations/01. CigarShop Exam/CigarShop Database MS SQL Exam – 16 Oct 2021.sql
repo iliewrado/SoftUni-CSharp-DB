@@ -155,3 +155,20 @@ FROM Clients AS C
 JOIN Addresses AS A ON C.AddressId = A.Id
 WHERE ISNUMERIC(A.ZIP) = 1
 ORDER BY FullName
+
+-- 10.	Cigars by Size
+SELECT 
+	 LastName
+	,CEILING(AVG(S.[Length])) AS CiagrLength
+	,CEILING(AVG(S.RingRange)) AS CiagrRingRange
+FROM Clients AS C
+JOIN ClientsCigars AS CC ON CC.ClientId = C.Id
+JOIN Cigars AS CG ON CC.CigarId = CG.Id
+JOIN Sizes AS S ON CG.SizeId = S.Id
+GROUP BY C.LastName
+ORDER BY CiagrLength DESC
+
+
+-- Section 4. Programmability (20 pts)
+
+-- 11.	Client with Cigars
