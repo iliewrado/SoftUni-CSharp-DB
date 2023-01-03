@@ -123,4 +123,33 @@ JOIN Tastes AS T ON C.TastId = T.Id
 WHERE T.TasteType IN ('Earthy', 'Woody')
 ORDER BY C.PriceForSingleCigar DESC
 
+-- 7.	Clients without Cigars
+SELECT
+	 Id
+	,CONCAT(FirstName, ' ', LastName) AS ClientName
+	,Email
+FROM Clients
+WHERE (SELECT TOP 1 1 FROM ClientsCigars WHERE ClientId = Id) IS NULL
+ORDER BY ClientName 
 
+-- 8.	First 5 Cigars
+SELECT TOP(5)
+  CigarName
+ ,PriceForSingleCigar
+ ,ImageURL
+FROM Cigars AS C
+JOIN Sizes AS S ON C.SizeId = S.Id
+WHERE [Length] >= 12 AND (C.CigarName LIKE '%ci%' OR PriceForSingleCigar > 50)
+					 AND S.RingRange > 2.55
+ORDER BY C.CigarName, C.PriceForSingleCigar DESC
+
+-- 9.	Clients with ZIP Codes
+SELECT
+	 CONCAT(C.FirstName, ' ', C.LastName) AS  FullName
+	,Country
+	,ZIP
+	,CONCAT('$', (SELECT MAX(PriceForSingleCigar) FROM Cigars)) AS CigarPrice
+FROM Clients AS C
+JOIN Addresses AS A ON C.AddressId = A.Id
+WHERE ISNUMERIC(A.ZIP) = 1
+ORDER BY FullName
