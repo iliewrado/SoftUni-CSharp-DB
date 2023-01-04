@@ -89,5 +89,25 @@ SET OwnerId = (SELECT Id
 WHERE OwnerId IS NULL
 
 -- 4.	Delete
+DELETE FROM Volunteers
+WHERE DepartmentId IN (SELECT Id 
+						FROM VolunteersDepartments 
+						WHERE DepartmentName = 'Education program assistant')
 
+DELETE FROM VolunteersDepartments 
+WHERE DepartmentName = 'Education program assistant'
 
+-- Section 3. Querying (40 pts)
+-- You need to start with a fresh dataset, 
+-- so recreate your DB and import the sample data again (01. DDL_Dataset.sql).
+-- DO NOT CHANGE OR INCLUDE DATA FROM DELETE, INSERT AND UDATE TASKS!!!
+
+-- 5.	Volunteers
+SELECT 
+[Name]
+,PhoneNumber
+,[Address]
+,AnimalId
+,DepartmentId
+FROM Volunteers
+ORDER BY [Name], AnimalId, DepartmentId
