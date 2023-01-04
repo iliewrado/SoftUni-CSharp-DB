@@ -111,3 +111,23 @@ SELECT
 ,DepartmentId
 FROM Volunteers
 ORDER BY [Name], AnimalId, DepartmentId
+
+-- 6.	Animals data
+SELECT 
+ [Name]
+,AnimalType
+,FORMAT(A.BirthDate, 'dd.MM.yyy') AS BirthDate
+FROM Animals AS A
+JOIN AnimalTypes AS T ON A.AnimalTypeId = T.Id
+ORDER BY A.[Name]
+
+-- 7.	Owners and Their Animals
+SELECT TOP(5)
+ O.[Name]
+,COUNT(A.Id) AS CountOfAnimals
+FROM Animals AS A
+JOIN Owners AS O ON A.OwnerId = O.Id
+GROUP BY O.[Name]
+ORDER BY CountOfAnimals DESC, O.[Name]
+
+-- 
