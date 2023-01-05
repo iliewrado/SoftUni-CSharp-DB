@@ -154,5 +154,28 @@ AND V.Address LIKE '%Sofia%'
 ORDER BY V.[Name]
 
 -- 10.	Animals for Adoption
+SELECT 
+[Name]	
+,DATEPART(YEAR,(SELECT BirthDate WHERE
+				DATEDIFF(YEAR, A.BirthDate, '2022-01-01') < 5)) AS BirthYear
+,AnimalType
+FROM Animals AS A
+JOIN AnimalTypes AS T ON A.AnimalTypeId = T.Id
+WHERE OwnerId IS NULL AND AnimalType <> 'Birds'
+ORDER BY A.[Name]
+
+-- Section 4. Programmability (20 pts)
+GO
+-- 11.	All Volunteers in a Department
+CREATE FUNCTION udf_GetVolunteersCountFromADepartment (@VolunteersDepartment VARCHAR(30))
+RETURNS INT
+AS 
+BEGIN
+RETURN (SELECT COUNT(*)
+		FROM Volunteers
+		WHERE DepartmentId IN (SELECT Id FROM VolunteersDepartments
+								WHERE DepartmentName = @VolunteersDepartment))
+END
+GO
 
 
