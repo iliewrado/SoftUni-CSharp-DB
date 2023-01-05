@@ -156,12 +156,13 @@ ORDER BY V.[Name]
 -- 10.	Animals for Adoption
 SELECT 
 [Name]	
-,DATEPART(YEAR,(SELECT BirthDate WHERE
-				DATEDIFF(YEAR, A.BirthDate, '2022-01-01') < 5)) AS BirthYear
+,DATEPART(YEAR, A.BirthDate) AS BirthYear
 ,AnimalType
 FROM Animals AS A
 JOIN AnimalTypes AS T ON A.AnimalTypeId = T.Id
-WHERE OwnerId IS NULL AND AnimalType <> 'Birds'
+WHERE OwnerId IS NULL 
+		AND AnimalType <> 'Birds'	
+		AND DATEDIFF(YEAR, A.BirthDate, '2022-01-01') < 5
 ORDER BY A.[Name]
 
 -- Section 4. Programmability (20 pts)
@@ -178,4 +179,24 @@ RETURN (SELECT COUNT(*)
 END
 GO
 
+-- Query
+-- SELECT dbo.udf_GetVolunteersCountFromADepartment ('Education program assistant')
+-- Output
+-- 6
+
+-- 12.	Animals with Owner or Not
+CREATE PROC usp_AnimalsWithOwnersOrNot(@AnimalName VARCHAR(30))
+AS
+BEGIN 
+SELECT 
+A.[Name]
+,CASE WHEN A.OwnerId IS NULL THEN 'For adoption'
+	  ELSE O.[Name] 
+	  END 
+	  AS OwnersName
+FROM Owners AS O
+JOIN Animals AS A ON A.OwnerId = O.Id
+WHERE A.[Name] = 'Hippo'--@AnimalName
+END
+GO
 
