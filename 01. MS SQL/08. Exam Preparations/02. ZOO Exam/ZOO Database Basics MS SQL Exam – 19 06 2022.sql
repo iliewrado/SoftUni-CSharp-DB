@@ -185,18 +185,23 @@ GO
 -- 6
 
 -- 12.	Animals with Owner or Not
-CREATE PROC usp_AnimalsWithOwnersOrNot(@AnimalName VARCHAR(30))
+CREATE PROCEDURE usp_AnimalsWithOwnersOrNot(@AnimalName VARCHAR(30))
 AS
-BEGIN 
+BEGIN
 SELECT 
 A.[Name]
-,CASE WHEN A.OwnerId IS NULL THEN 'For adoption'
-	  ELSE O.[Name] 
-	  END 
-	  AS OwnersName
-FROM Owners AS O
-JOIN Animals AS A ON A.OwnerId = O.Id
-WHERE A.[Name] = 'Hippo'--@AnimalName
+,CASE 
+    WHEN A.OwnerId IS NULL 
+	THEN 'For adoption'
+   	ELSE O.[Name]
+	END AS OwnersName
+FROM Owners O
+JOIN Animals A ON A.OwnerId = O.Id
+WHERE A.[Name] = @AnimalName
 END
 GO
 
+-- EXEC usp_AnimalsWithOwnersOrNot 'Hippo'
+-- Result
+-- Name		OwnersName
+-- Hippo	For adoption
