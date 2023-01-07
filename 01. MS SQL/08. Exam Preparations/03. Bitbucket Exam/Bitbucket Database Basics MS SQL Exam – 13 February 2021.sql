@@ -117,6 +117,24 @@ WHERE Size > 1000 AND [Name] LIKE '%html%'
 ORDER BY Size DESC, Id, [Name]
 
 -- 7.	Issue Assignment
+SELECT
+I.Id
+,CONCAT(U.Username, ' : ', I.Title) AS IssueAssignee
+FROM Issues AS I
+LEFT JOIN Users AS U ON I.AssigneeId = U.Id
+ORDER BY I.Id DESC, I.AssigneeId
+
+-- 8.	Single Files
+SELECT
+F.Id
+,F.[Name]
+,CONCAT(F.Size, 'KB') AS Size
+FROM Files AS F
+LEFT JOIN Files AS P ON F.Id = P.ParentId
+WHERE P.Id IS NULL
+ORDER BY F.Id, F.[Name], F.Size DESC
+
+-- 9.	Commits in Repositories
 
 
 
