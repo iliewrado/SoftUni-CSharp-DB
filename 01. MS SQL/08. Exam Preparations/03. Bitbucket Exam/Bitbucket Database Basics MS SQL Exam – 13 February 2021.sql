@@ -135,6 +135,14 @@ WHERE P.Id IS NULL
 ORDER BY F.Id, F.[Name], F.Size DESC
 
 -- 9.	Commits in Repositories
-
+SELECT TOP(5)
+R.Id
+,[Name]
+,COUNT(*) AS Commits
+FROM Repositories AS R
+JOIN Commits AS C ON C.RepositoryId = R.Id
+JOIN RepositoriesContributors AS RC ON R.Id = RC.RepositoryId
+GROUP BY R.Id, [Name]
+ORDER BY Commits DESC, R.Id, R.[Name] 
 
 
