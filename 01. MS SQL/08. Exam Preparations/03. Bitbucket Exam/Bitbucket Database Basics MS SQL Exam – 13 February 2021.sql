@@ -80,4 +80,13 @@ VALUES
 ,('Implement documentation for UsersService.cs', 'closed', 8, 2)
 ,('Unreachable code in Index.cs', 'open', 9 ,8)
 
+-- 3.	Update
+UPDATE Issues
+SET IssueStatus = 'closed' 
+WHERE AssigneeId = 6
+
+-- 4.	Delete
+
+
+
 
