@@ -86,7 +86,19 @@ SET IssueStatus = 'closed'
 WHERE AssigneeId = 6
 
 -- 4.	Delete
+DELETE FROM Issues
+WHERE RepositoryId IN (SELECT Id FROM Repositories
+						WHERE [Name] = 'Softuni-Teamwork')
+DELETE FROM RepositoriesContributors
+WHERE RepositoryId IN (SELECT Id FROM Repositories
+						WHERE [Name] = 'Softuni-Teamwork')
 
+-- Section 3. Querying (40 pts)
 
+-- You need to start with a fresh dataset, 
+-- so recreate your DB and import the sample data again (DataSet-Bitbucket.sql).
 
+-- 5.	Commits
+SELECT * FROM Commits
+ORDER BY Id, [Message], RepositoryId, ContributorId
 
