@@ -145,4 +145,54 @@ JOIN RepositoriesContributors AS RC ON R.Id = RC.RepositoryId
 GROUP BY R.Id, [Name]
 ORDER BY Commits DESC, R.Id, R.[Name] 
 
+-- 10.	Average Size
+SELECT
+U.Username
+,AVG(F.Size) AS Size
+FROM Users AS U
+JOIN Commits AS C ON U.Id = C.ContributorId
+JOIN Files AS F ON C.Id = F.CommitId
+GROUP BY U.Id, U.Username
+ORDER BY Size DESC, U.Username
 
+-- Section 4. Programmability (20 pts)
+GO
+-- 11.	All User Commits
+CREATE FUNCTION udf_AllUserCommits(@username VARCHAR(30))
+RETURNS INT
+AS 
+BEGIN 
+RETURN (SELECT 
+		COUNT(C.Id)
+		FROM Commits AS C
+		JOIN Users AS U ON C.ContributorId = U.Id
+		WHERE U.Username = @username)
+END
+GO
+
+-- Query
+-- SELECT dbo.udf_AllUserCommits('UnderSinduxrein')
+-- Output
+-- 6
+
+-- 12.	 Search for Files
+CREATE PROC usp_SearchForFiles(@fileExtension VARCHAR(30))
+AS 
+BEGIN
+SELECT
+Id
+,[Name]
+,CONCAT(Size, 'KB') AS Size
+FROM Files
+WHERE [Name] LIKE CONCAT('%', @fileExtension)
+ORDER BY Id, [Name], Size DESC
+END
+GO
+
+-- Query
+-- EXEC usp_SearchForFiles 'txt'
+-- Output
+-- Id	Name		Size
+-- 28	Jason.txt	10317.54KB
+-- 31	file.txt	5514.02KB
+-- 43	init.txt	16089.79KB
