@@ -100,13 +100,23 @@ WHERE RepositoryId IN (SELECT Id FROM Repositories
 
 -- 5.	Commits
 SELECT 
-Id, 
-[Message],
-RepositoryId, 
-ContributorId
+Id
+,[Message]
+,RepositoryId 
+,ContributorId
 FROM Commits
 ORDER BY Id, [Message], RepositoryId, ContributorId
 
 -- 6.	Front-end
+SELECT 
+Id
+,[Name]
+,Size
+FROM Files
+WHERE Size > 1000 AND [Name] LIKE '%html%'
+ORDER BY Size DESC, Id, [Name]
+
+-- 7.	Issue Assignment
+
 
 
