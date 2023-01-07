@@ -99,6 +99,14 @@ WHERE RepositoryId IN (SELECT Id FROM Repositories
 -- so recreate your DB and import the sample data again (DataSet-Bitbucket.sql).
 
 -- 5.	Commits
-SELECT * FROM Commits
+SELECT 
+Id, 
+[Message],
+RepositoryId, 
+ContributorId
+FROM Commits
 ORDER BY Id, [Message], RepositoryId, ContributorId
+
+-- 6.	Front-end
+
 
