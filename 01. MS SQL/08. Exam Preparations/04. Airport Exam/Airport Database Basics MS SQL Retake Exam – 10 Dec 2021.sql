@@ -91,6 +91,15 @@ WHERE LEN(FullName) <= 10
 -- so recreate your DB and import the sample data again (01. DDL_Dataset.sql).
 
 -- 5.	Aircraft
+SELECT 
+Manufacturer
+,Model	
+,FlightHours	
+,Condition
+FROM Aircraft
+ORDER BY FlightHours DESC
+
+-- 6.	Pilots and Aircraft
 
 
 	
