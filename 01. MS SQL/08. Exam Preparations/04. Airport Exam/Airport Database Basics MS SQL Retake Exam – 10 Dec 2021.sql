@@ -21,7 +21,7 @@ CREATE TABLE Pilots (
 Id INT PRIMARY KEY IDENTITY
 ,FirstName VARCHAR(30) UNIQUE NOT NULL
 ,LastName VARCHAR(30) UNIQUE NOT NULL
-,Age TINYINT CHECK (Age BETWEEN 21 AND 62) NOT NULL
+,Age TINYINT CHECK (Age BETWEEN 21 AND 62) 
 ,Rating FLOAT CHECK (Rating BETWEEN 0.0 AND 10.0)
 )
 
@@ -55,7 +55,7 @@ Id INT PRIMARY KEY IDENTITY
 CREATE TABLE FlightDestinations (
 Id INT PRIMARY KEY IDENTITY
 ,AirportId INT FOREIGN KEY REFERENCES Airports(Id) 
-,[Start] DATETIME 
+,[Start] DATETIME NOT NULL
 ,AircraftId INT FOREIGN KEY REFERENCES Aircraft(Id)
 ,PassengerId INT FOREIGN KEY REFERENCES Passengers(Id) 
 ,TicketPrice DECIMAL(18, 2) NOT NULL DEFAULT 15
@@ -67,6 +67,30 @@ Id INT PRIMARY KEY IDENTITY
 -- If you have created the structure correctly the data should be successfully inserted.
 
 -- 2.	Insert
+INSERT INTO Passengers (FullName, Email)
+(SELECT 
+ CONCAT(FirstName, ' ', LastName) AS FullName
+,CONCAT(FirstName, LastName, '@gmail.com') AS Email 
+FROM Pilots
+WHERE Id BETWEEN 5 AND 15)
+
+-- 3.	Update
+UPDATE Aircraft
+SET Condition = 'A'
+WHERE (Condition = 'C' OR Condition = 'B')
+	AND (FlightHours IS NULL OR FlightHours <= 100)
+	AND ([Year] >= 2013)
+
+-- 4.	Delete
+DELETE FROM Passengers
+WHERE LEN(FullName) <= 10
+
+-- Section 3. Querying (40 pts)
+
+-- You need to start with a fresh dataset, 
+-- so recreate your DB and import the sample data again (01. DDL_Dataset.sql).
+
+-- 5.	Aircraft
 
 
-
+	
