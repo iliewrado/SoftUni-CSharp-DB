@@ -43,7 +43,7 @@ Id INT PRIMARY KEY IDENTITY
 CREATE TABLE PilotsAircraft (
 AircraftId INT FOREIGN KEY REFERENCES Aircraft (Id)
 ,PilotId INT FOREIGN KEY REFERENCES Pilots (Id)
-PRIMARY KEY (AircraftId, PilotId)
+,PRIMARY KEY (AircraftId, PilotId)
 )
 
 CREATE TABLE Airports (
