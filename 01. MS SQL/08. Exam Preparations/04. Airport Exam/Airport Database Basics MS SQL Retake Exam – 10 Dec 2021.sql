@@ -36,7 +36,7 @@ Id INT PRIMARY KEY IDENTITY
 ,Model VARCHAR(30) NOT NULL
 ,[Year] INT NOT NULL
 ,FlightHours INT
-,Condition CHAR NOT NULL
+,Condition CHAR(1) NOT NULL
 ,TypeId INT FOREIGN KEY REFERENCES AircraftTypes (Id) 
 )
 
@@ -58,7 +58,7 @@ Id INT PRIMARY KEY IDENTITY
 ,[Start] DATETIME 
 ,AircraftId INT FOREIGN KEY REFERENCES Aircraft(Id)
 ,PassengerId INT FOREIGN KEY REFERENCES Passengers(Id) 
-,TicketPrice DECIMAL(16, 2) NOT NULL DEFAULT 15
+,TicketPrice DECIMAL(18, 2) NOT NULL DEFAULT 15
 )
 
 -- Section 2. DML (10 pts)
