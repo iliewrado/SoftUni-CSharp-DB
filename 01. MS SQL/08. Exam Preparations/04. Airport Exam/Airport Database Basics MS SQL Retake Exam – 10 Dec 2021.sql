@@ -113,5 +113,80 @@ WHERE FlightHours IS NOT NULL AND FlightHours <= 304
 ORDER BY FlightHours DESC, P.FirstName
 
 -- 7.	Top 20 Flight Destinations
+SELECT TOP (20)
+F.Id AS DestinationId
+,[Start]
+,P.FullName
+,A.AirportName
+,F.TicketPrice
+FROM FlightDestinations AS F
+JOIN Passengers AS P ON F.PassengerId = P.Id
+JOIN Airports AS A ON F.AirportId = A.Id
+WHERE DATEPART(DAY, F.[Start]) % 2 = 0
+ORDER BY F.TicketPrice DESC, A.AirportName
 
-	
+-- 8.	Number of Flights for Each Aircraft
+
+
+
+
+
+
+-- Section 4. Programmability (20 pts)
+GO
+-- 11.	Find all Destinations by Email Address
+CREATE FUNCTION udf_FlightDestinationsByEmail(@email VARCHAR(50))
+RETURNS INT
+AS 
+BEGIN
+RETURN (SELECT 
+		COUNT(*)
+		FROM FlightDestinations
+		WHERE PassengerId IN (SELECT Id FROM Passengers
+								WHERE Email = @email))
+END
+GO
+
+-- Query
+-- SELECT dbo.udf_FlightDestinationsByEmail ('PierretteDunmuir@gmail.com')
+-- Output
+-- 1
+
+-- 12.	Full Info for Airports
+CREATE PROC usp_SearchByAirportName (@airportName VARCHAR(70))
+AS 
+BEGIN 
+SELECT
+A.AirportName
+,P.FullName
+,F.TicketPrice,
+	CASE 
+		 WHEN TicketPrice <= 400 THEN 'Low'
+		 WHEN TicketPrice BETWEEN 401 AND 1500 THEN 'Medium' 
+		 WHEN TicketPrice > 1500 THEN 'High'
+		 END AS LevelOfTickerPrice	
+,AC.Manufacturer	
+,AC.Condition	
+,T.TypeName 
+FROM FlightDestinations AS F
+JOIN Airports AS A ON F.AirportId = A.Id
+JOIN Passengers AS P ON F.PassengerId = P.Id
+JOIN Aircraft AS AC ON F.AircraftId = AC.Id
+JOIN AircraftTypes AS T ON AC.TypeId = T.Id
+WHERE A.AirportName = @airportName
+ORDER BY Manufacturer, FullName
+END
+GO
+
+
+-- Query
+-- EXEC usp_SearchByAirportName 'Sir Seretse Khama International Airport'
+
+-- Result
+-- AirportName			FullName			LevelOfTickerPrice	Manufacturer	Condition	TypeName
+-- Sir Seretse			Alyson Jankowski	Low					Airbus			B			Private Single Engine
+-- Khama International 
+-- Airport	
+-- ........
+
+
