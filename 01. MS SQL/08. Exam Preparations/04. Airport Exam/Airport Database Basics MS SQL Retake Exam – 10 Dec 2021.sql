@@ -126,8 +126,17 @@ WHERE DATEPART(DAY, F.[Start]) % 2 = 0
 ORDER BY F.TicketPrice DESC, A.AirportName
 
 -- 8.	Number of Flights for Each Aircraft
-
-
+SELECT
+A.Id AS AircraftId
+,A.Manufacturer
+,A.FlightHours
+,COUNT(F.Id) AS FlightDestinationsCount
+,ROUND(AVG(F.TicketPrice), 2) AS AvgPrice
+FROM Aircraft AS A
+JOIN FlightDestinations AS F ON A.Id = F.AircraftId
+GROUP BY A.Id, A.Manufacturer, A.FlightHours
+HAVING COUNT(F.Id) >= 2 
+ORDER BY FlightDestinationsCount DESC, A.Id 
 
 -- 9.	Regular Passengers
 SELECT 
