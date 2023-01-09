@@ -127,10 +127,9 @@ ORDER BY F.TicketPrice DESC, A.AirportName
 
 -- 8.	Number of Flights for Each Aircraft
 
+-- 9.	Regular Passengers
 
-
-
-
+-- 10.	Full Info for Flight Destinations
 
 -- Section 4. Programmability (20 pts)
 GO
@@ -158,8 +157,7 @@ AS
 BEGIN 
 SELECT
 A.AirportName
-,P.FullName
-,F.TicketPrice,
+,P.FullName,
 	CASE 
 		 WHEN TicketPrice <= 400 THEN 'Low'
 		 WHEN TicketPrice BETWEEN 401 AND 1500 THEN 'Medium' 
