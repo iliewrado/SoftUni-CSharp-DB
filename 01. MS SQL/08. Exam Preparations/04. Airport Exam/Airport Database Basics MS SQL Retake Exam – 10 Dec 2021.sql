@@ -127,9 +127,29 @@ ORDER BY F.TicketPrice DESC, A.AirportName
 
 -- 8.	Number of Flights for Each Aircraft
 
+
+
 -- 9.	Regular Passengers
+SELECT 
+A.AirportName
+,F.[Start] AS DayTime
+,F.TicketPrice
+,P.FullName
+,C.Manufacturer
+,C.Model
+FROM FlightDestinations AS F
+JOIN Airports AS A ON F.AirportId = A.Id
+JOIN Passengers AS P ON F.PassengerId = P.Id
+JOIN Aircraft AS C ON F.AircraftId = C.Id
+WHERE DATEPART(HOUR, F.[Start]) BETWEEN 6 AND 20
+	  AND F.TicketPrice > 2500
+ORDER BY C.Model
+
+
 
 -- 10.	Full Info for Flight Destinations
+
+
 
 -- Section 4. Programmability (20 pts)
 GO
