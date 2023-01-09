@@ -100,6 +100,18 @@ FROM Aircraft
 ORDER BY FlightHours DESC
 
 -- 6.	Pilots and Aircraft
+SELECT
+P.FirstName
+,P.LastName
+,A.Manufacturer
+,A.Model
+,A.FlightHours 
+FROM Pilots AS P
+JOIN PilotsAircraft AS PA ON P.Id = PA.PilotId
+JOIN Aircraft AS A ON PA.AircraftId = A.Id
+WHERE FlightHours IS NOT NULL AND FlightHours <= 304
+ORDER BY FlightHours DESC, P.FirstName
 
+-- 7.	Top 20 Flight Destinations
 
 	
