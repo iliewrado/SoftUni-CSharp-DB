@@ -131,6 +131,18 @@ ORDER BY F.TicketPrice DESC, A.AirportName
 
 -- 9.	Regular Passengers
 SELECT 
+P.FullName
+,COUNT(*) AS CountOfAircraft
+,SUM(F.TicketPrice) AS TotalPayed
+FROM FlightDestinations AS F
+JOIN Passengers AS P ON F.PassengerId = P.Id
+WHERE P.FullName LIKE '_a%'
+GROUP BY P.FullName
+HAVING COUNT(*) > 1
+ORDER BY P.FullName
+
+-- 10.	Full Info for Flight Destinations
+SELECT 
 A.AirportName
 ,F.[Start] AS DayTime
 ,F.TicketPrice
@@ -144,12 +156,6 @@ JOIN Aircraft AS C ON F.AircraftId = C.Id
 WHERE DATEPART(HOUR, F.[Start]) BETWEEN 6 AND 20
 	  AND F.TicketPrice > 2500
 ORDER BY C.Model
-
-
-
--- 10.	Full Info for Flight Destinations
-
-
 
 -- Section 4. Programmability (20 pts)
 GO
