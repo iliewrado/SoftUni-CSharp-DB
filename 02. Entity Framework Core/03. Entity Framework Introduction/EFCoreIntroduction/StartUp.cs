@@ -120,5 +120,68 @@ namespace SoftUni
 
             return result.ToString().TrimEnd();
         }
+
+        public static string GetEmployeesInPeriod(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var allEmploees = context.
+                Projects
+                .Where(p => p.StartDate.Year >= 2001
+                && p.StartDate.Year <= 2003)
+                .Take(10);
+
+
+            foreach (var e in allEmploees)
+            {
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string GetAddressesByTown(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var allEmploees = context
+                .Addresses
+                .OrderByDescending(a => a.Employees.Count)
+                .ThenBy(t => t.Town.Name)
+                .ThenBy(a => a.AddressText)
+                .Take(10)
+                .Select(a => new
+                {
+                    a.AddressText,
+                    a.Town.Name,
+                    a.Employees.Count
+                })
+                .ToArray();
+
+            foreach (var e in allEmploees)
+            {
+                result.AppendLine($"{e.AddressText}, {e.Name} - {e.Count} employees");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string GetEmployee147(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            Employee emploee147 = context
+                .Employees
+                .First(e => e.EmployeeId == 147);
+            result.AppendLine($"{emploee147.FirstName} {emploee147.LastName} - {emploee147.JobTitle}");
+
+
+            foreach (var p in emploee147.EmployeesProjects
+                .OrderBy(p => p.Project.Name))
+            {
+                result.AppendLine(p.Project.Name);
+            }
+
+            return result.ToString().TrimEnd();
+        }
     }
 }
