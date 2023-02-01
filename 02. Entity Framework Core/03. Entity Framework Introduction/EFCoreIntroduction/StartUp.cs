@@ -125,16 +125,6 @@ namespace SoftUni
         {
             StringBuilder result = new StringBuilder();
 
-            var allEmploees = context.
-                Projects
-                .Where(p => p.StartDate.Year >= 2001
-                && p.StartDate.Year <= 2003)
-                .Take(10);
-
-
-            foreach (var e in allEmploees)
-            {
-            }
 
             return result.ToString().TrimEnd();
         }
@@ -172,8 +162,8 @@ namespace SoftUni
             Employee emploee147 = context
                 .Employees
                 .First(e => e.EmployeeId == 147);
+           
             result.AppendLine($"{emploee147.FirstName} {emploee147.LastName} - {emploee147.JobTitle}");
-
 
             foreach (var p in emploee147.EmployeesProjects
                 .OrderBy(p => p.Project.Name))
