@@ -1,4 +1,6 @@
-﻿using SoftUni.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using SoftUni.Data;
 using SoftUni.Models;
 using System.Globalization;
 using System.Text;
@@ -153,8 +155,7 @@ namespace SoftUni
 
                 foreach (var p in e.projects)
                 {
-                    result.AppendLine($"--{p.Name} - {p.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture)} - {(p.EndDate != null 
-                        ? p.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture) : "not finished")}");
+                    result.AppendLine($"--{p.Name} - {p.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture)} - {(p.EndDate != null ? p.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture) : "not finished")}");
                 }
             }
 
@@ -262,6 +263,110 @@ namespace SoftUni
                 result.AppendLine(d.Description);
                 result.AppendLine(d.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture));
             }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string IncreaseSalaries(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var toUpdate = context
+                .Employees
+                .Where(employee =>
+                employee.Department.Name == "Engineering"
+                || employee.Department.Name == "Tool Design"
+                || employee.Department.Name == "Marketing"
+                || employee.Department.Name == "Information Services")
+                .ToList();
+
+            foreach( var e in toUpdate)
+            {
+                e.Salary *= 1.12M;
+            }
+
+            context.SaveChanges();
+
+            var emploees = context
+                .Employees
+                .Where(employee =>
+                employee.Department.Name == "Engineering"
+                || employee.Department.Name == "Tool Design"
+                || employee.Department.Name == "Marketing"
+                || employee.Department.Name == "Information Services")
+                .Select(e => new
+                {
+                    e.FirstName, 
+                    e.LastName,
+                    e.Salary
+                })
+                .OrderBy(e => e.FirstName)
+                .ThenBy(e => e.LastName)
+                .ToList();
+
+            foreach (var e in emploees)
+            {
+                result.AppendLine($"{e.FirstName} {e.LastName} ({e.Salary:f2})");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string GetEmployeesByFirstNameStartingWithSa(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var emploeesSa = context 
+                .Employees
+                .Where(e => EF.Functions.Like(e.FirstName, "Sa%"))
+                .Select(e => new 
+                {
+                    e.FirstName,
+                    e.LastName,
+                    e.JobTitle,
+                    e.Salary
+                })
+                .OrderBy(e => e.FirstName)
+                .ThenBy(e => e.LastName)
+                .ToList();
+
+            foreach (var e in emploeesSa)
+            {
+                result.AppendLine($"{e.FirstName} {e.LastName} - {e.JobTitle} - ({e.Salary:f2})");
+            }    
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string DeleteProjectById(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder(); 
+
+            var emploees = context
+                .EmployeesProjects
+                .Where(p => p.ProjectId == 2)
+                .ToList();  
+
+            foreach (var e in emploees) 
+            { 
+                context.EmployeesProjects.Remove(e);
+            } 
+            
+            var project = context.Projects.FirstOrDefault(p => p.ProjectId == 2);
+            context.Projects.Remove(project);
+            context.SaveChanges();
+
+            var projects = context
+                .Projects
+                .Take(10)
+                .Select(e => e.Name)
+                .ToList();
+
+            foreach (var p in projects)
+            {
+                result.AppendLine(p);
+            }
+
 
             return result.ToString().TrimEnd();
         }
