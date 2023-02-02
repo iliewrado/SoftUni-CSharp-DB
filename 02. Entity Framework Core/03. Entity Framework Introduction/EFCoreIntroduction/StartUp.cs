@@ -1,5 +1,6 @@
 ﻿using SoftUni.Data;
 using SoftUni.Models;
+using System.Globalization;
 using System.Text;
 
 namespace SoftUni
@@ -125,6 +126,38 @@ namespace SoftUni
         {
             StringBuilder result = new StringBuilder();
 
+            var employeesAndProjects = context
+                .Employees
+                .Where(e => e.EmployeesProjects
+                .Any(p => p.Project.StartDate.Year >= 2001
+                            && p.Project.StartDate.Year <= 2003))
+                .Take(10)
+                .Select(e => new 
+                {
+                    e.FirstName,
+                    e.LastName,
+                    managerFirstName = e.Manager.FirstName,
+                    managerLastName = e.Manager.LastName,
+                    projects = e.EmployeesProjects.Select(p => new 
+                    {
+                        p.Project.Name, 
+                        p.Project.StartDate, 
+                        p.Project.EndDate
+                    })
+                })
+                .ToList();
+
+            foreach (var e in employeesAndProjects)
+            {
+                result.AppendLine($"{e.FirstName} {e.LastName} - Manager: {e.managerFirstName} {e.managerLastName}");
+
+                foreach (var p in e.projects)
+                {
+                    result.AppendLine($"--{p.Name} - {p.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture)} - {(p.EndDate != null 
+                        ? p.EndDate.Value.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture) : "not finished")}");
+                }
+            }
+
 
             return result.ToString().TrimEnd();
         }
@@ -206,5 +239,31 @@ namespace SoftUni
             return result.ToString().TrimEnd();
         }
 
+        public static string GetLatestProjects(SoftUniContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var latestProjects = context
+                .Projects
+                .OrderByDescending(p => p.StartDate)
+                .Take(10)
+                .Select(p => new
+                {
+                    p.Name,
+                    p.Description,
+                    p.StartDate
+                })
+                .OrderBy(p => p.Name)
+                .ToArray();
+
+            foreach( var d in latestProjects)
+            {
+                result.AppendLine(d.Name);
+                result.AppendLine(d.Description);
+                result.AppendLine(d.StartDate.ToString("M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture));
+            }
+
+            return result.ToString().TrimEnd();
+        }
     }
 }
