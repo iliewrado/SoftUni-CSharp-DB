@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic;
 using SoftUni.Data;
 using SoftUni.Models;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 
@@ -369,6 +370,40 @@ namespace SoftUni
 
 
             return result.ToString().TrimEnd();
+        }
+
+
+        public static string RemoveTown(SoftUniContext context)
+        {
+            Town townToDelete = context
+                .Towns
+                .FirstOrDefault(t => t.Name == "Seattle");
+
+            var addresses = context
+                .Addresses
+                .Where(a => a.TownId == townToDelete.TownId)
+                .ToList();
+
+            var employeesToSet = context
+                .Employees
+                .Where(e => addresses.Contains(e.Address))
+                .ToList();
+
+            foreach (var e in employeesToSet)
+            {
+                e.AddressId = null;
+            }
+
+            foreach (var a in addresses)
+            {
+                context.Remove(a);
+            }
+
+            context.Remove(townToDelete);
+            context.SaveChanges();
+
+
+            return  $"{addresses.Count} addresses in Seattle were deleted";
         }
     }
 }
