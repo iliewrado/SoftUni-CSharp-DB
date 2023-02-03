@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using SoftUni.Data;
 using SoftUni.Models;
-using System.Drawing;
 using System.Globalization;
 using System.Text;
 
@@ -58,7 +56,7 @@ namespace SoftUni
                     e.Salary
                 })
                 .OrderBy(e => e.FirstName)
-                .ToArray();
+                .ToList();
 
             foreach (var e in allEmploees)
             {
