@@ -1,0 +1,16 @@
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\bin\Debug\net5.0\P03_FootballBetting.exe
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\bin\Debug\net5.0\P03_FootballBetting.deps.json
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\bin\Debug\net5.0\P03_FootballBetting.runtimeconfig.json
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\bin\Debug\net5.0\P03_FootballBetting.runtimeconfig.dev.json
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\bin\Debug\net5.0\P03_FootballBetting.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\bin\Debug\net5.0\P03_FootballBetting.pdb
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.csproj.AssemblyReference.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.AssemblyInfoInputs.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.AssemblyInfo.cs
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.csproj.CoreCompileInputs.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\refint\P03_FootballBetting.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.pdb
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\P03_FootballBetting.genruntimeconfig.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting\obj\Debug\net5.0\ref\P03_FootballBetting.dll

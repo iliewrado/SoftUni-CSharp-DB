@@ -1,0 +1,5 @@
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data.Models\obj\Debug\net5.0\P03_FootballBetting.Data.Models.csproj.AssemblyReference.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data.Models\obj\Debug\net5.0\P03_FootballBetting.Data.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data.Models\obj\Debug\net5.0\P03_FootballBetting.Data.Models.AssemblyInfoInputs.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data.Models\obj\Debug\net5.0\P03_FootballBetting.Data.Models.AssemblyInfo.cs
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data.Models\obj\Debug\net5.0\P03_FootballBetting.Data.Models.csproj.CoreCompileInputs.cache
