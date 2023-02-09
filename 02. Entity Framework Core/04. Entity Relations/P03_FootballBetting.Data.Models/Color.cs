@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace P03_FootballBetting.Data.Models
 {
-    internal class Color
+    public class Color
     {
         [Key]
         public int ColorId { get; set; }

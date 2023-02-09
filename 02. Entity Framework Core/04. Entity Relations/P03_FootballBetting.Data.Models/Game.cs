@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace P03_FootballBetting.Data.Models
 {
-    internal class Game
+    public class Game
     {
         [Key]
         public int GameId { get; set; }
