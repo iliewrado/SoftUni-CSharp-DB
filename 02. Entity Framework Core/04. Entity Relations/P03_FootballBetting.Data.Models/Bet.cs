@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace P03_FootballBetting.Data.Models
 {
     internal class Bet
     {
+        [Key]
         public int BetId { get; set; }
+
 
         public decimal Amount { get; set; }
 

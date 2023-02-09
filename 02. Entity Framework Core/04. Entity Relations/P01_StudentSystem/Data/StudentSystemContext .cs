@@ -24,6 +24,7 @@ namespace P01_StudentSystem.Data
 
         public DbSet<StudentCourse> StudentCourses { get; set; }
 
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

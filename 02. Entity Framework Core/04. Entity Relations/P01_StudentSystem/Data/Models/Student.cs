@@ -25,6 +25,7 @@ namespace P01_StudentSystem.Data.Models
 
         public virtual ICollection<Homework> HomeworkSubmissions { get; set; }
 
+        
         public Student()
         {
             CourseEnrollments = new HashSet<Course>();
