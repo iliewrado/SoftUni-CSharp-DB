@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mNkkvIk0QYjcHNaiWcWDKpf3CXC8TO0h0PDzDe6ldt/QL7k16Oy4BZQlbpTt8iVpAk+r8v8HwQf+YIbRMGiHXQ==",
+  "dgSpecHash": "3M7Qkpku0LsjtGbH/DSTviZAIH5T4Q43tcatwCA8mI1HvbdNMt9jVq8iW99a3O9gNYIAZpQn5zKhkmlwP5MBng==",
   "success": true,
   "projectFilePath": "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data\\P03_FootballBetting.Data.csproj",
   "expectedPackageFiles": [

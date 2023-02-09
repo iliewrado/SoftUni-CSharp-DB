@@ -1,9 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using P03_FootballBetting.Data.Models;
 
 namespace P03_FootballBetting.Data
 {
     public class FootballBettingContext : DbContext
     {
+        //public DbSet<Bet> Bets { get; set; }
+
+        //public DbSet<Country> Countries { get; set; }
+
+
         public FootballBettingContext(DbContextOptions options)
             : base(options)
         {
@@ -23,7 +29,10 @@ namespace P03_FootballBetting.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+        //    modelBuilder.Entity<PlayerStatistic>()
+        //        .HasKey(sc => new { sc.StudentId, sc.CourseId });
 
+        //    base.OnModelCreating(modelBuilder);
         }
     }
 }

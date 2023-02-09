@@ -10,3 +10,6 @@ D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Rel
 D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data\obj\Debug\net5.0\refint\P03_FootballBetting.Data.dll
 D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data\obj\Debug\net5.0\P03_FootballBetting.Data.pdb
 D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data\obj\Debug\net5.0\ref\P03_FootballBetting.Data.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data\bin\Debug\net5.0\P03_FootballBetting.Data.Models.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data\bin\Debug\net5.0\P03_FootballBetting.Data.Models.pdb
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\04. Entity Relations\P03_FootballBetting.Data\obj\Debug\net5.0\P03_FootballBetting.Data.csproj.CopyComplete

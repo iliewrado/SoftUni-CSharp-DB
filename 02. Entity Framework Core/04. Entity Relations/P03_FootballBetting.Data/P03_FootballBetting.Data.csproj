@@ -9,4 +9,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\P03_FootballBetting.Data.Models\P03_FootballBetting.Data.Models.csproj" />
+  </ItemGroup>
+
 </Project>

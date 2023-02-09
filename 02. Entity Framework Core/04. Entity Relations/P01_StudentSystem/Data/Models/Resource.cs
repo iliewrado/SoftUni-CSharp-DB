@@ -17,7 +17,7 @@ namespace P01_StudentSystem.Data.Models
 
         public ResourceType ResourceType { get; set; }
 
-        [ForeignKey(nameof(CourseId))]
+        [ForeignKey(nameof(Course))]
         public int CourseId { get; set; }
         public virtual Course Course { get; set; }
     }

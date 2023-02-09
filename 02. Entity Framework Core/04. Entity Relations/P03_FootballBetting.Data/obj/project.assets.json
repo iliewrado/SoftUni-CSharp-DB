@@ -1438,6 +1438,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "P03_FootballBetting.Data.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/P03_FootballBetting.Data.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/P03_FootballBetting.Data.Models.dll": {}
+        }
       }
     }
   },
@@ -5103,12 +5113,18 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "P03_FootballBetting.Data.Models/1.0.0": {
+      "type": "project",
+      "path": "../P03_FootballBetting.Data.Models/P03_FootballBetting.Data.Models.csproj",
+      "msbuildProject": "../P03_FootballBetting.Data.Models/P03_FootballBetting.Data.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "Microsoft.EntityFrameworkCore >= 3.1.3",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.3"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.3",
+      "P03_FootballBetting.Data.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5146,7 +5162,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data.Models\\P03_FootballBetting.Data.Models.csproj": {
+              "projectPath": "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data.Models\\P03_FootballBetting.Data.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
