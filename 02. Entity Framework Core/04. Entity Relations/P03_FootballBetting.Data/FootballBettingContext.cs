@@ -39,7 +39,7 @@ namespace P03_FootballBetting.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=SoftUni;User Id=sa;Password=Radoslav!;encrypt=false;");
+                optionsBuilder.UseSqlServer("Server=.;Database=FootballBookmaker;User Id=sa;Password=Radoslav!;encrypt=false;");
             }
         }
 

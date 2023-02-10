@@ -29,7 +29,7 @@ namespace P01_StudentSystem.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=SoftUni;User Id=sa;Password=Radoslav!;encrypt=false;");
+                optionsBuilder.UseSqlServer("Server=.;Database=StudentSystem;User Id=sa;Password=Radoslav!;encrypt=false;");
             }
         }
 
