@@ -31,7 +31,7 @@ namespace P03_FootballBetting.Data
         {
         }
 
-        protected FootballBettingContext()
+        public FootballBettingContext()
         {
         }
 
@@ -47,6 +47,32 @@ namespace P03_FootballBetting.Data
         {
             modelBuilder.Entity<PlayerStatistic>()
                 .HasKey(ps => new { ps.PlayerId, ps.GameId });
+
+            modelBuilder.Entity<Team>(e =>
+            {
+                e.HasOne(t => t.PrimaryKitColor)
+                .WithMany(c => c.PrimaryKitTeams)
+                .HasForeignKey(t => t.PrimaryKitColorId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+                e.HasOne(t => t.SecondaryKitColor)
+                .WithMany(c => c.SecondaryKitTeams)
+                .HasForeignKey(t => t.SecondaryKitColorId)
+                .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<Game>(g =>
+            {
+                g.HasOne(t => t.HomeTeam)
+                .WithMany(t => t.HomeGames)
+                .HasForeignKey(g => g.HomeTeamId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+                g.HasOne(t => t.AwayTeam)
+                .WithMany(t => t.AwayGames)
+                .HasForeignKey(g => g.AwayTeamId)
+                .OnDelete(DeleteBehavior.NoAction);
+            });
 
             base.OnModelCreating(modelBuilder);
         }

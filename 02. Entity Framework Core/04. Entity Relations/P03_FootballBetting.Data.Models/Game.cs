@@ -13,11 +13,11 @@ namespace P03_FootballBetting.Data.Models
         [Key]
         public int GameId { get; set; }
 
-        [ForeignKey(nameof(Team.HomeGames))]
+        [ForeignKey(nameof(Team))]
         public int HomeTeamId { get; set; }
         public Team HomeTeam { get; set; }
 
-        [ForeignKey(nameof(Team.AwayGames))]
+        [ForeignKey(nameof(Team))]
         public int AwayTeamId { get; set; }
         public Team AwayTeam { get; set; }
 
@@ -37,11 +37,9 @@ namespace P03_FootballBetting.Data.Models
         public BetPrediction Result { get; set; }
 
 
-        [InverseProperty(nameof(PlayerStatistic))]
         public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
 
         
-        [InverseProperty(nameof(Bet))]
         public ICollection<Bet> Bets { get; set; }
 
 

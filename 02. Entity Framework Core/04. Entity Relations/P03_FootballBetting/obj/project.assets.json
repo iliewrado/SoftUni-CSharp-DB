@@ -5218,7 +5218,8 @@
       "Microsoft.EntityFrameworkCore >= 3.1.3",
       "Microsoft.EntityFrameworkCore.Design >= 3.1.3",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.3",
-      "P03_FootballBetting.Data >= 1.0.0"
+      "P03_FootballBetting.Data >= 1.0.0",
+      "P03_FootballBetting.Data.Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5257,6 +5258,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data.Models\\P03_FootballBetting.Data.Models.csproj": {
+              "projectPath": "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data.Models\\P03_FootballBetting.Data.Models.csproj"
+            },
             "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data\\P03_FootballBetting.Data.csproj": {
               "projectPath": "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P03_FootballBetting.Data\\P03_FootballBetting.Data.csproj"
             }

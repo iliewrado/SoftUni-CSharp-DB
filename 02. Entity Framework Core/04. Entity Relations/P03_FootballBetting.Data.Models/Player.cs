@@ -27,7 +27,6 @@ namespace P03_FootballBetting.Data.Models
         public bool IsInjured { get; set; } = false;
 
 
-        [InverseProperty(nameof(PlayerStatistics))]
         public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
 
         public Player()

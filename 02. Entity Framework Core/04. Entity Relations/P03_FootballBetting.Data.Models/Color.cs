@@ -13,10 +13,8 @@ namespace P03_FootballBetting.Data.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        
         [InverseProperty(nameof(Team.PrimaryKitColor))]
         public ICollection<Team> PrimaryKitTeams { get; set; }
-
 
         [InverseProperty(nameof(Team.SecondaryKitColor))]
         public ICollection<Team> SecondaryKitTeams { get; set; }

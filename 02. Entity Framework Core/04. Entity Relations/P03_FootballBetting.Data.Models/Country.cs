@@ -14,7 +14,6 @@ namespace P03_FootballBetting.Data.Models
         public string Name { get; set; }
 
         
-        [InverseProperty(nameof(Town))]
         public ICollection<Town> Towns { get; set; }
 
 

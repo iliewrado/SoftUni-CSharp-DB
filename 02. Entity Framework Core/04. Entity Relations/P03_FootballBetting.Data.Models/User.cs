@@ -27,7 +27,6 @@ namespace P03_FootballBetting.Data.Models
 
         public decimal Balance { get; set; }
 
-        [InverseProperty(nameof(Bet))]
         public ICollection<Bet> Bets { get; set; }
 
         public User()
