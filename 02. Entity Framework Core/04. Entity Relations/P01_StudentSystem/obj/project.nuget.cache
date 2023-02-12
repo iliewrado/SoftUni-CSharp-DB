@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LEes2FAKod+2uXb2Hwi625CCjYP6LN5Ns/X8eLpDnEGriNhsYcpSnMP6Uz9TmGE71F9ItosGv1iQ6wb3OfrCvg==",
+  "dgSpecHash": "J3tGS5C5sphuqgVc0IRG/gyE+fSHlKhz2HhffZUvIoGc16SEvQu20PpayAk2a15soFKq1Avus5hP43LnQa99sA==",
   "success": true,
   "projectFilePath": "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\04. Entity Relations\\P01_StudentSystem\\P01_StudentSystem.csproj",
   "expectedPackageFiles": [
@@ -89,7 +89,9 @@
     "C:\\Users\\ray_m\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ray_m\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\ray_m\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\ray_m\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\ray_m\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.32\\microsoft.netcore.app.host.win-x64.3.1.32.nupkg.sha512"
   ],
   "logs": []
 }

@@ -14,8 +14,8 @@ namespace P03_FootballBetting.Data.Models
         public string Name { get; set; }
 
         [ForeignKey(nameof(Country))]
-        public string CountryId { get; set; }
-        public Country _Country { get; set; }
+        public int CountryId { get; set; }
+        public Country Country { get; set; }
 
         
         public ICollection<Team> Teams { get; set; }

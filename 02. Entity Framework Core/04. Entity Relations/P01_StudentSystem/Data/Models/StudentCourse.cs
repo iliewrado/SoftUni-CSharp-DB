@@ -1,4 +1,7 @@
-﻿namespace P01_StudentSystem.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace P01_StudentSystem.Data.Models
 {
     public class StudentCourse
     {

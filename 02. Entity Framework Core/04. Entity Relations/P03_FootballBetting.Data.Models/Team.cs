@@ -41,11 +41,15 @@ namespace P03_FootballBetting.Data.Models
         [InverseProperty(nameof(Game.AwayTeam))]
         public ICollection<Game> AwayGames { get; set; }
 
+
+        public ICollection<Player> Players { get; set; }
+
         
         public Team()
         {
             HomeGames = new HashSet<Game>();
             AwayGames = new HashSet<Game>();
+            Players = new HashSet<Player>();
         }
     }
 }
