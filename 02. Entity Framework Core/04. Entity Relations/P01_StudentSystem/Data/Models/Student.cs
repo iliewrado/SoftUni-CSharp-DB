@@ -21,14 +21,14 @@ namespace P01_StudentSystem.Data.Models
 
         public DateTime? Birthday  { get; set;}
 
-        public virtual ICollection<Course> CourseEnrollments { get; set; }
+        public virtual ICollection<StudentCourse> CourseEnrollments { get; set; }
 
         public virtual ICollection<Homework> HomeworkSubmissions { get; set; }
 
         
         public Student()
         {
-            CourseEnrollments = new HashSet<Course>();
+            CourseEnrollments = new HashSet<StudentCourse>();
             HomeworkSubmissions = new HashSet<Homework>();
         }
     }
