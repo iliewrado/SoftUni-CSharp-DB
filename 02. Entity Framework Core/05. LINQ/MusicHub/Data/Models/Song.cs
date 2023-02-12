@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using MusicHub.Data.Models.Enums;
+﻿using MusicHub.Data.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace MusicHub.Data.Models
 {
