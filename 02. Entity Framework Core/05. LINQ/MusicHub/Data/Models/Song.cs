@@ -27,13 +27,13 @@ namespace MusicHub.Data.Models
         public Genre Genre { get; set; }
 
         [ForeignKey(nameof(Album))]
-        public int AlbumId { get; set; }
-        public Album album { get; set; }
+        public int? AlbumId { get; set; }
+        public Album Album { get; set; }
 
         [Required]
         [ForeignKey(nameof(Writer))]
         public int WriterId { get; set; }
-        public Writer writer { get; set; }
+        public Writer Writer { get; set; }
 
         [Required]
         public decimal Price { get; set; }
