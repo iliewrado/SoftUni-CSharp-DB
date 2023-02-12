@@ -50,7 +50,7 @@
                 result.AppendLine($"-AlbumName: {album.AlbumName}");
                 result.AppendLine($"-ReleaseDate: {album.ReleaseDate}");
                 result.AppendLine($"-ProducerName: {album.ProducerName}");
-                result.AppendLine("-Songs: ");
+                result.AppendLine("-Songs:");
                 
                 int count = 0;
                 
