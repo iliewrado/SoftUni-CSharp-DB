@@ -13,7 +13,7 @@ namespace SoftUni.Models
         public int ProjectId { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
-        [InverseProperty(nameof(Models.Employee.EmployeesProjects))]
+        [InverseProperty(nameof(Models.Employee.Projects))]
         public virtual Employee Employee { get; set; }
         [ForeignKey(nameof(ProjectId))]
         [InverseProperty(nameof(Models.Project.EmployeesProjects))]

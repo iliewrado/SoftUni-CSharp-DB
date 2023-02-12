@@ -129,7 +129,7 @@ namespace SoftUni
 
             var employeesAndProjects = context
                 .Employees
-                .Where(e => e.EmployeesProjects
+                .Where(e => e.Projects
                 .Any(p => p.Project.StartDate.Year >= 2001
                             && p.Project.StartDate.Year <= 2003))
                 .Take(10)
@@ -139,7 +139,7 @@ namespace SoftUni
                     e.LastName,
                     managerFirstName = e.Manager.FirstName,
                     managerLastName = e.Manager.LastName,
-                    projects = e.EmployeesProjects.Select(p => new 
+                    projects = e.Projects.Select(p => new 
                     {
                         p.Project.Name, 
                         p.Project.StartDate, 
@@ -198,7 +198,7 @@ namespace SoftUni
            
             result.AppendLine($"{emploee147.FirstName} {emploee147.LastName} - {emploee147.JobTitle}");
 
-            foreach (var p in emploee147.EmployeesProjects
+            foreach (var p in emploee147.Projects
                 .OrderBy(p => p.Project.Name))
             {
                 result.AppendLine(p.Project.Name);

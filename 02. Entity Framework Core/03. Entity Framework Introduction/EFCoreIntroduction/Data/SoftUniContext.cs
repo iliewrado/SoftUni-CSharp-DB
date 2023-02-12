@@ -84,7 +84,7 @@ namespace SoftUni.Data
                 entity.HasKey(e => new { e.EmployeeId, e.ProjectId });
 
                 entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.EmployeesProjects)
+                    .WithMany(p => p.Projects)
                     .HasForeignKey(d => d.EmployeeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_EmployeesProjects_Employees");
