@@ -71,6 +71,17 @@
             return result.ToString().TrimEnd();
         }
 
+        public static string GetBooksNotReleasedIn(BookShopContext context, int year)
+        {
+            var titles = context.Books
+                .Where(b => b.ReleaseDate == null 
+                || b.ReleaseDate.Value.Year != year)
+                .OrderBy(b => b.BookId)
+                .Select(b => b.Title)
+                .ToList();
+
+            return String.Join(Environment.NewLine, titles).TrimEnd();
+        }
 
         public static string ToTitle(string text)
         {
