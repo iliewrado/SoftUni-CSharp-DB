@@ -17,13 +17,11 @@
             DbInitializer.ResetDatabase(db);
 
             //Console.WriteLine(GetBooksByAgeRestriction(db, ToTitle(Console.ReadLine())));
-            Console.WriteLine(GetGoldenBooks(db));
+            Console.WriteLine(GetBooksByPrice(db));
         }
 
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)
         {
-            string result = string.Empty;
-
             bool isParsed = Enum.TryParse(command, true, out AgeRestriction ageRestriction);
 
             if (isParsed)
@@ -34,10 +32,10 @@
                 .OrderBy(b => b)
                 .ToList();
 
-                result = String.Join(Environment.NewLine, restrictedBooks);
+                return String.Join(Environment.NewLine, restrictedBooks);
             }
 
-            return result.ToString().TrimEnd();
+            return String.Empty;
         }
 
         public static string GetGoldenBooks(BookShopContext context)
@@ -50,6 +48,29 @@
 
             return String.Join(Environment.NewLine, goldenBooks).TrimEnd();
         }
+
+        public static string GetBooksByPrice(BookShopContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var books = context.Books
+                .Where(p => p.Price > 40)
+                .Select(p => new
+                {
+                    Price = p.Price,
+                    Title = p.Title
+                })
+                .OrderByDescending(p => p.Price)
+                .ToList();
+
+            foreach (var book in books)
+            {
+                result.AppendLine($"{book.Title} - ${book.Price:f2}");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
 
         public static string ToTitle(string text)
         {
