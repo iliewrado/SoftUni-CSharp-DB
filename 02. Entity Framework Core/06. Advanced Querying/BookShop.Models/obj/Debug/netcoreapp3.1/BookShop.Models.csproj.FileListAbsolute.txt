@@ -1,0 +1,10 @@
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\bin\Debug\netcoreapp3.1\BookShop.Models.deps.json
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\bin\Debug\netcoreapp3.1\BookShop.Models.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\bin\Debug\netcoreapp3.1\BookShop.Models.pdb
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.csproj.AssemblyReference.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.AssemblyInfoInputs.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.AssemblyInfo.cs
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.csproj.CoreCompileInputs.cache
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.dll
+D:\Users\ray_m\source\SoftUni-CSharp-DB\02. Entity Framework Core\06. Advanced Querying\BookShop.Models\obj\Debug\netcoreapp3.1\BookShop.Models.pdb
