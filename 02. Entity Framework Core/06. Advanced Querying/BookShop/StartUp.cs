@@ -87,13 +87,11 @@
 
         public static string GetBooksByCategory(BookShopContext context, string input)
         {
-            string[] listOfCategories = ToTitle(input)
+            string[] listOfCategories = input.ToLower()
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             var listOfBooks = context.Books
-                .Where(b => b.BookCategories
-                .Any(c => listOfCategories
-                .Contains(c.Category.Name)))
+                .Where(b => b.BookCategories.Any(c => listOfCategories.Contains(c.Category.Name.ToLower())))
                 .Select(b => b.Title)
                 .OrderBy(t => t)
                 .ToList();
@@ -133,7 +131,7 @@
                 {
                     FullName = $"{a.FirstName} {a.LastName}"
                 })
-                .OrderBy(a => a)
+                .OrderBy(a => a.FullName)
                 .ToList();
 
             return String.Join(Environment.NewLine, autauthors);
@@ -148,6 +146,11 @@
                 .ToList();
 
             return String.Join(Environment.NewLine, bookTitles);
+        }
+
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            return string.Empty;
         }
 
         public static string ToTitle(string text)
