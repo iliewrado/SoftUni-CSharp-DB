@@ -6,6 +6,7 @@
     using Initializer;
     using Microsoft.EntityFrameworkCore.Migrations.Operations;
     using System;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
 
@@ -17,7 +18,8 @@
             DbInitializer.ResetDatabase(db);
 
             //Console.WriteLine(GetBooksByAgeRestriction(db, ToTitle(Console.ReadLine())));
-            Console.WriteLine(GetBooksByPrice(db));
+            //Console.WriteLine(GetBooksByPrice(db));
+            GetBooksReleasedBefore(db, Console.ReadLine());
         }
 
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)
@@ -81,6 +83,71 @@
                 .ToList();
 
             return String.Join(Environment.NewLine, titles).TrimEnd();
+        }
+
+        public static string GetBooksByCategory(BookShopContext context, string input)
+        {
+            string[] listOfCategories = ToTitle(input)
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            var listOfBooks = context.Books
+                .Where(b => b.BookCategories
+                .Any(c => listOfCategories
+                .Contains(c.Category.Name)))
+                .Select(b => b.Title)
+                .OrderBy(t => t)
+                .ToList();
+
+            return String.Join(Environment.NewLine, listOfBooks).TrimEnd();
+        }
+
+        public static string GetBooksReleasedBefore(BookShopContext context, string date)
+        {
+            StringBuilder result = new StringBuilder();
+            DateTime inputDate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+            var listOfBooks = context.Books
+                .Where(b => b.ReleaseDate < inputDate)
+                .OrderByDescending(d => d.ReleaseDate)
+                .Select(b => new 
+                {
+                    Title = b.Title,
+                    Edition = b.EditionType,
+                    Price = b.Price
+                })
+                .ToList();
+
+            foreach (var book in listOfBooks)
+            {
+                result.AppendLine($"{book.Title} - {book.Edition} - ${book.Price:f2}");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            var autauthors = context.Authors
+                .Where(a => a.FirstName.EndsWith(input))
+                .Select(a => new
+                {
+                    FullName = $"{a.FirstName} {a.LastName}"
+                })
+                .OrderBy(a => a)
+                .ToList();
+
+            return String.Join(Environment.NewLine, autauthors);
+        }
+
+        public static string GetBookTitlesContaining(BookShopContext context, string input)
+        {
+            var bookTitles = context.Books
+                .Where(t => t.Title.ToLower().Contains(input.ToLower()))
+                .Select(t => t.Title)
+                .OrderBy(t => t)
+                .ToList();
+
+            return String.Join(Environment.NewLine, bookTitles);
         }
 
         public static string ToTitle(string text)
