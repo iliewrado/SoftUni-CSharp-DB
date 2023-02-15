@@ -150,7 +150,25 @@
 
         public static string GetBooksByAuthor(BookShopContext context, string input)
         {
-            return string.Empty;
+            StringBuilder result = new StringBuilder();
+
+            var titlesAndAuthors = context.Books
+                .Where(a => a.Author.LastName.ToLower().StartsWith(input.ToLower()))
+                .Select(b => new 
+                { 
+                    Id = b.BookId,
+                    Title = b.Title,
+                    AuthorName = $"{b.Author.FirstName} {b.Author.LastName}",
+                })
+                .OrderBy(b => b.Id)
+                .ToList();
+
+            foreach (var book in titlesAndAuthors)
+            {
+                result.AppendLine($"{book.Title} ({book.AuthorName})");
+            }
+
+            return result.ToString().TrimEnd();
         }
 
         public static string ToTitle(string text)
