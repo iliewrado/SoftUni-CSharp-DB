@@ -4,6 +4,7 @@
     using Castle.Core.Internal;
     using Data;
     using Initializer;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Migrations.Operations;
     using System;
     using System.Globalization;
@@ -201,6 +202,28 @@
             foreach (var author in authorCopiesCount)
             {
                 result.AppendLine($"{author.FullName} - {author.countBooks}");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static string GetTotalProfitByCategory(BookShopContext context)
+        {
+            StringBuilder result = new StringBuilder();
+            
+            var categories = context.Categories
+                .Select(c => new
+                {
+                    Name = c.Name,
+                    Profit = c.CategoryBooks.Sum(b=> (b.Book.Price * b.Book.Copies))
+                })
+                .OrderByDescending(c => c.Profit)
+                .ThenBy(c => c.Name)
+                .ToList();
+
+            foreach (var category in categories)
+            {
+                result.AppendLine($"{category.Name} ${category.Profit}");
             }
 
             return result.ToString().TrimEnd();
