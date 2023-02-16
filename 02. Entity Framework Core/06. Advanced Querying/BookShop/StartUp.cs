@@ -229,6 +229,39 @@
             return result.ToString().TrimEnd();
         }
 
+        public static string GetMostRecentBooks(BookShopContext context)
+        {
+            StringBuilder result = new StringBuilder(); 
+
+            var recentBooksCategory = context.Categories
+                .Select(c => new
+                {
+                    Name = c.Name,
+                    Books = c.CategoryBooks
+                        .OrderByDescending(cb => cb.Book.ReleaseDate)
+                        .Take(3)
+                        .Select(b => new
+                        {
+                            Title = b.Book.Title,
+                            Year = b.Book.ReleaseDate.Value.Year.ToString()
+                        })
+                })
+                .OrderBy(c => c.Name)
+                .ToList();
+
+            foreach (var cat in recentBooksCategory)
+            {
+                result.AppendLine($"--{cat.Name}");
+
+                foreach (var book in cat.Books)
+                {
+                    result.AppendLine($"{book.Title} ({book.Year})");
+                }
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
         public static string ToTitle(string text)
         {
             if (text.IsNullOrEmpty())
