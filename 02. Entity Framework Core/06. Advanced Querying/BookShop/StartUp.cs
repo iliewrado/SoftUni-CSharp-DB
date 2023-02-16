@@ -19,8 +19,7 @@
             DbInitializer.ResetDatabase(db);
 
             //Console.WriteLine(GetBooksByAgeRestriction(db, ToTitle(Console.ReadLine())));
-            //Console.WriteLine(GetBooksByPrice(db));
-            CountCopiesByAuthor(db);
+            Console.WriteLine(GetBooksByPrice(db));
         }
 
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)
@@ -135,7 +134,14 @@
                 .OrderBy(a => a.FullName)
                 .ToList();
 
-            return String.Join(Environment.NewLine, autauthors);
+            StringBuilder names= new StringBuilder();
+
+            foreach (var author in autauthors)
+            {
+                names.AppendLine(author.FullName);
+            }
+
+            return names.ToString().TrimEnd();
         }
 
         public static string GetBookTitlesContaining(BookShopContext context, string input)
