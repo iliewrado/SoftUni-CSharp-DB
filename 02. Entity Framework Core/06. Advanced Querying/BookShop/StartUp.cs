@@ -282,7 +282,7 @@
                 .Where(b => b.Copies < 4200)
                 .ToList();
 
-            context.Remove(books);
+            context.RemoveRange(books);
             context.SaveChanges();
             return books.Count;
         }
