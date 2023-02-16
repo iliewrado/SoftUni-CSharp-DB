@@ -8,6 +8,7 @@
     using System;
     using System.Globalization;
     using System.Linq;
+    using System.Net.Http.Headers;
     using System.Text;
 
     public class StartUp
@@ -19,7 +20,7 @@
 
             //Console.WriteLine(GetBooksByAgeRestriction(db, ToTitle(Console.ReadLine())));
             //Console.WriteLine(GetBooksByPrice(db));
-            GetBooksReleasedBefore(db, Console.ReadLine());
+            CountCopiesByAuthor(db);
         }
 
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)
@@ -166,6 +167,34 @@
             foreach (var book in titlesAndAuthors)
             {
                 result.AppendLine($"{book.Title} ({book.AuthorName})");
+            }
+
+            return result.ToString().TrimEnd();
+        }
+
+        public static int CountBooks(BookShopContext context, int lengthCheck)
+        {
+            return context.Books
+                .Where(t => t.Title.Length > lengthCheck)
+                .ToList().Count;
+        }
+
+        public static string CountCopiesByAuthor(BookShopContext context)
+        {
+            StringBuilder result = new StringBuilder();
+
+            var authorCopiesCount = context.Authors
+                .Select(a => new
+                {
+                    FullName = $"{a.FirstName} {a.LastName}",
+                    countBooks = a.Books.Sum(b => b.Copies)
+                })
+                .OrderByDescending(c => c.countBooks)
+                .ToList();
+
+            foreach (var author in authorCopiesCount)
+            {
+                result.AppendLine($"{author.FullName} - {author.countBooks}");
             }
 
             return result.ToString().TrimEnd();
