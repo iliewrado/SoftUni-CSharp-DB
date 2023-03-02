@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "/Hk3JLwz7fhQ9IXKNPPHTItMGi1F5DdhgHCEzI+Bo45z5rhw4FjBU/V6d+XhcLc4D1ZZeT2LqqKrexSi2+CIKg==",
+  "success": true,
+  "projectFilePath": "D:\\Users\\ray_m\\source\\SoftUni-CSharp-DB\\02. Entity Framework Core\\07. Auto Mapping Objects\\FastFood.Models\\FastFood.Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.app\\2.1.0\\microsoft.netcore.app.2.1.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.dotnetapphost\\2.1.0\\microsoft.netcore.dotnetapphost.2.1.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.dotnethostpolicy\\2.1.0\\microsoft.netcore.dotnethostpolicy.2.1.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.dotnethostresolver\\2.1.0\\microsoft.netcore.dotnethostresolver.2.1.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.platforms\\2.1.0\\microsoft.netcore.platforms.2.1.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\microsoft.netcore.targets\\2.1.0\\microsoft.netcore.targets.2.1.0.nupkg.sha512",
+    "C:\\Users\\ray_m\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
