@@ -127,10 +127,47 @@ SELECT
 
 
  -- 8.	
+ SELECT 
+ S.[Name] AS [Site]
+ ,L.[Name] AS [Location]
+ ,Municipality
+ ,Province
+ ,Establishment
+ FROM Sites AS S 
+ JOIN Locations AS L ON S.LocationId = L.Id
+ WHERE L.[Name] NOT LIKE 'B%' 
+		AND L.[Name] NOT LIKE'M%'
+		AND L.[Name] NOT LIKE'D%' 
+		AND Establishment LIKE '%BC'
+ORDER BY [Site] ASC
+ 
 
  -- 9.	
+SELECT 
+T.[Name]
+,T.Age
+,T.PhoneNumber
+,Nationality
+,ISNULL(B.[Name], '(no bonus prize)') AS Reward
+FROM Tourists AS T
+LEFT JOIN TouristsBonusPrizes AS TB ON TB.TouristId =T.Id
+LEFT JOIN BonusPrizes AS B ON TB.BonusPrizeId = B.Id
+ORDER BY T.[Name] ASC
 
  -- 10.
+SELECT 
+(SELECT SUBSTRING(T.[Name], CHARINDEX(' ', T.[Name]) + 1, LEN(T.[Name]))) AS LastName
+,Nationality
+,Age
+,PhoneNumber
+FROM Tourists AS T 
+JOIN SitesTourists AS ST ON ST.TouristId = T.Id
+JOIN Sites AS S ON ST.SiteId = S.Id
+JOIN Categories AS C ON S.CategoryId = C.Id
+WHERE C.[Name] = 'History and archaeology'
+GROUP BY T.[Name], Nationality, Age, PhoneNumber
+ORDER BY LastName
+
  
  -- Section 4. Programmability (20 pts)
 
