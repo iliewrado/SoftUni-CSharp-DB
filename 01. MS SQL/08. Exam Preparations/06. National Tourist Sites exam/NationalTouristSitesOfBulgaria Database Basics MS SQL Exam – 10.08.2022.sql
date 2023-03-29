@@ -94,16 +94,80 @@ WHERE [Name] = 'Sleeping bag'
  -- Section 3. Querying (40 pts)
 
  -- 5.
+ SELECT
+ [Name]
+ ,Age
+ ,PhoneNumber
+ ,Nationality
+ FROM Tourists
+ ORDER BY Nationality ASC, Age DESC, [Name] ASC
  
  -- 6.
+SELECT
+ S.[Name] AS [Site]
+ ,L.[Name] AS [Location]
+ ,Establishment
+ ,C.[Name] AS Category
+ FROM Sites AS S
+ JOIN Locations AS L ON S.LocationId = L.Id
+ JOIN Categories AS C ON S.CategoryId = C.Id
+ ORDER BY Category DESC, [Location] ASC, [Site] ASC
  
  -- 7.	
+ SELECT
+ L.Province
+ ,L.Municipality
+ ,L.[Name] AS [Location]
+ ,COUNT(S.Id) AS CountOfSites
+ FROM Locations AS L
+ JOIN Sites AS S ON L.Id = S.LocationId
+ WHERE Province = 'Sofia'
+ GROUP BY Province, Municipality,L.[Name]
+ ORDER BY CountOfSites DESC, [Location] ASC
+
 
  -- 8.	
+ SELECT 
+ S.[Name] AS [Site]
+ ,L.[Name] AS [Location]
+ ,Municipality
+ ,Province
+ ,Establishment
+ FROM Sites AS S 
+ JOIN Locations AS L ON S.LocationId = L.Id
+ WHERE L.[Name] NOT LIKE 'B%' 
+		AND L.[Name] NOT LIKE'M%'
+		AND L.[Name] NOT LIKE'D%' 
+		AND Establishment LIKE '%BC'
+ORDER BY [Site] ASC
+ 
 
  -- 9.	
+SELECT 
+T.[Name]
+,T.Age
+,T.PhoneNumber
+,Nationality
+,ISNULL(B.[Name], '(no bonus prize)') AS Reward
+FROM Tourists AS T
+LEFT JOIN TouristsBonusPrizes AS TB ON TB.TouristId =T.Id
+LEFT JOIN BonusPrizes AS B ON TB.BonusPrizeId = B.Id
+ORDER BY T.[Name] ASC
 
  -- 10.
+SELECT 
+(SELECT SUBSTRING(T.[Name], CHARINDEX(' ', T.[Name]) + 1, LEN(T.[Name]))) AS LastName
+,Nationality
+,Age
+,PhoneNumber
+FROM Tourists AS T 
+JOIN SitesTourists AS ST ON ST.TouristId = T.Id
+JOIN Sites AS S ON ST.SiteId = S.Id
+JOIN Categories AS C ON S.CategoryId = C.Id
+WHERE C.[Name] = 'History and archaeology'
+GROUP BY T.[Name], Nationality, Age, PhoneNumber
+ORDER BY LastName
+
  
  -- Section 4. Programmability (20 pts)
 
@@ -124,17 +188,20 @@ WHERE SiteId IN (SELECT
 END
 GO
 
-
 ---- 12.	Create a stored procedure
 CREATE PROC usp_AnnualRewardLottery(@TouristName VARCHAR(50))
 AS
 BEGIN 
-UPDATE Tourists
-SET Reward = CASE 
-	WHEN 
-	WHEN 
-	THEN 
-	END 
+SELECT
+[Name]
+,(CASE 
+	WHEN COUNT(ST.SiteId) >= 100 THEN 'Gold badge'
+	WHEN COUNT(ST.SiteId) >= 50 THEN 'Silver badge'
+	WHEN COUNT(ST.SiteId) >= 25 THEN 'Bronze badge'
+	END) AS Reward
+FROM Tourists AS T
+JOIN SitesTourists AS ST ON T.Id = ST.TouristId
 WHERE [Name] = @TouristName
+GROUP BY [Name]
 END
 GO
