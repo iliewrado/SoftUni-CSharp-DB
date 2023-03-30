@@ -94,10 +94,29 @@ WHERE [StatusId] = 4
  ORDER BY FORMAT(OpenDate, 'yyyy-MM-dd') ASC, [Description] ASC
  
  -- 6.
- 
- -- 7.	
+SELECT
+[Description]
+,C.[Name] AS CategoryName
+FROM Reports AS R
+JOIN Categories AS C ON R.CategoryId = C.Id
+WHERE CategoryId IS NOT NULL
+ORDER BY [Description] ASC, CategoryName ASC
+
+ -- 7.
+SELECT TOP(5)
+C.[Name] AS CategoryName
+,COUNT(R.Id) ReportsNumber
+FROM Reports AS R
+JOIN Categories AS C ON R.CategoryId = C.Id
+GROUP BY C.[Name]
+ORDER BY ReportsNumber DESC, CategoryName ASC
 
  -- 8.	
+
+
+
+
+
 
  -- 9.	
 
