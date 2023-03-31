@@ -112,15 +112,44 @@ GROUP BY C.[Name]
 ORDER BY ReportsNumber DESC, CategoryName ASC
 
  -- 8.	
-
-
-
-
-
+SELECT
+Username,
+C.[Name] AS CategoryName
+FROM Reports AS R
+JOIN Users AS U ON R.UserId = U.Id
+JOIN Categories AS C ON R.CategoryId = C.Id 
+WHERE (DATEPART(DAY, U.Birthdate) = DATEPART(DAY, R.OpenDate))
+		AND (DATEPART(MONTH, U.Birthdate) = DATEPART(MONTH, R.OpenDate))
+ORDER BY Username ASC, CategoryName ASC
 
  -- 9.	
+SELECT
+CONCAT(E.FirstName, ' ', E.LastName) AS FullName 
+,COUNT(DISTINCT U.Id) AS UsersCount
+FROM Employees AS E 
+LEFT JOIN Reports AS R ON E.Id = R.EmployeeId
+LEFT JOIN Users AS U ON R.UserId = U.Id
+GROUP BY E.FirstName, E.LastName
+ORDER BY UsersCount DESC, FullName ASC
 
  -- 10.
+SELECT
+	ISNULL(CONCAT(E.FirstName, ' ', E.LastName), 'None') AS Employee
+	,ISNULL(D.[Name],'None') AS Department
+	,ISNULL(C.[Name],'None') AS Category
+	,ISNULL(R.[Description],'None') AS [Description]
+	,ISNULL(FORMAT(R.OpenDate, 'dd.MM.yyyy'),'None') AS OpenDate
+	,ISNULL(S.[Label],'None') AS [Status]
+	,ISNULL(U.[Name],'None') AS [User]
+FROM Reports AS R
+	LEFT JOIN Employees AS E ON R.EmployeeId = E.Id
+	LEFT JOIN Departments AS D ON E.DepartmentId = D.Id
+	LEFT JOIN Categories AS C ON R.CategoryId = C.Id
+	LEFT JOIN [Status] AS S ON R.StatusId = S.Id
+	LEFT JOIN Users AS U ON R.UserId = U.Id
+ORDER BY E.FirstName DESC, E.LastName DESC, D.[Name] ASC, 
+		C.[Name] ASC, R.[Description] ASC, R.OpenDate ASC, S.[Label] ASC, U.[Name] ASC
+
  
  -- Section 4. Programmability (20 pts)
 
@@ -152,7 +181,7 @@ BEGIN
 										JOIN Categories AS C ON R.CategoryId = C.Id
 										WHERE R.Id = @ReportId)
 	IF(@EmployeeDepartmentId != @ReportDepartmentId)
-		THROW 50001, 'Employee doesn\''t belong to the appropriate department!', 1
+		THROW 50001, 'Employee doesn''t belong to the appropriate department!', 1
 
 	UPDATE Reports
 	SET EmployeeId = @EmployeeId
