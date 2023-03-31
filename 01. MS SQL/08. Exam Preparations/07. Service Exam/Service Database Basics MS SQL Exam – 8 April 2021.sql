@@ -126,20 +126,36 @@ ORDER BY ReportsNumber DESC, CategoryName ASC
 
  -- 11.	Create a user-defined function
 GO
-CREATE FUNCTION  ( )
-RETURNS 
+CREATE FUNCTION udf_HoursToComplete(@StartDate DATETIME, @EndDate DATETIME) 
+RETURNS INT
 AS
-BEGIN
-RETURN 
-
+BEGIN IF(@StartDate IS NULL OR @EndDate IS NULL)
+		BEGIN
+			RETURN 0
+		END
+RETURN DATEDIFF(HOUR, @StartDate, @EndDate)
 END
 GO
 
 
 ---- 12.	Create a stored procedure
-CREATE PROC  ( )
+CREATE PROC usp_AssignEmployeeToReport(@EmployeeId INT, @ReportId INT)
 AS
 BEGIN 
+	DECLARE @EmployeeDepartmentId INT = (SELECT 
+										DepartmentId
+										FROM Employees
+										WHERE Id = @EmployeeId)
+	DECLARE @ReportDepartmentId INT = (SELECT
+										C.DepartmentId
+										FROM Reports AS R
+										JOIN Categories AS C ON R.CategoryId = C.Id
+										WHERE R.Id = @ReportId)
+	IF(@EmployeeDepartmentId != @ReportDepartmentId)
+		THROW 50001, 'Employee doesn\''t belong to the appropriate department!', 1
 
+	UPDATE Reports
+	SET EmployeeId = @EmployeeId
+	WHERE Id = @ReportId
 END
 GO
