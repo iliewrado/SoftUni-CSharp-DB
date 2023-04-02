@@ -144,8 +144,26 @@ GROUP BY M.FirstName, M.LastName, M.MechanicId
 ORDER BY M.MechanicId
 
  -- 8.	
+SELECT
+CONCAT(M.FirstName, ' ', M.LastName) AS Available 
+FROM Mechanics AS M
+JOIN Jobs AS J ON J.MechanicId = M.MechanicId
+WHERE (J.[Status] != 'In Progress') OR (J.[Status] IS NULL)
+GROUP BY M.FirstName, M.LastName, M.MechanicId
+ORDER BY M.MechanicId
 
  -- 9.	
+SELECT
+J.JobId AS JobId
+,SUM(P.Price) Total
+FROM Jobs AS J
+JOIN Orders AS O ON O.JobId = J.JobId
+JOIN OrderParts AS OP ON O.OrderId = OP.OrderId
+JOIN Parts AS P ON OP.PartId = P.PartId
+WHERE J.[Status] = 'Finished'
+GROUP BY J.JobId
+ORDER BY Total DESC, J.JobId ASC
+
 
  -- 10.
  
