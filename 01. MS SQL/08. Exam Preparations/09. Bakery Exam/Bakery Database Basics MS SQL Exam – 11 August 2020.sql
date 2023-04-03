@@ -107,17 +107,70 @@ WHERE CustomerId = 14 OR ProductId = 5
  ,CAST(Price AS DECIMAL(15, 2))Price
  ,[Description]
  FROM Products
- ORDER BY Price
+ ORDER BY Price DESC, [Name] ASC
  
  -- 6.
+ SELECT
+ F.ProductId
+ ,F.Rate
+ ,F.[Description]
+ ,C.Id AS CustomerId
+ ,C.Age
+ ,C.Gender 
+ FROM Feedbacks AS F
+ LEFT JOIN Customers AS C ON F.CustomerId = C.Id
+ WHERE F.Rate < 5.0
+ ORDER BY ProductId DESC, Rate ASC
+
  
  -- 7.	
+ SELECT 
+ CONCAT(C.FirstName, ' ', C.LastName) CustomerName
+ ,PhoneNumber
+ ,Gender
+ FROM Customers AS C
+ LEFT JOIN Feedbacks AS F ON C.Id = F.CustomerId
+ WHERE F.CustomerId IS NULL
+ ORDER BY C.Id
 
  -- 8.	
+ SELECT 
+ FirstName
+ ,Age
+ ,PhoneNumber
+ FROM Customers
+ WHERE (Age >= 21 AND FirstName LIKE '%an%')
+	OR (RIGHT(PhoneNumber, 2) = '38' AND CountryId != 
+	(SELECT Id FROM Countries
+	WHERE [Name] = 'Greece'))
+ORDER BY FirstName ASC, Age DESC
 
  -- 9.	
+ SELECT
+ D.[Name] AS DistributorName
+ ,I.[Name] AS IngredientName
+ ,P.[Name] AS ProductName
+ ,AVG(F.Rate) AS AverageRate
+ FROM Distributors AS D
+ JOIN Ingredients AS I ON D.Id = I.DistributorId
+ JOIN ProductsIngredients AS PP ON I.Id = PP.IngredientId
+ JOIN Products AS P ON PP.ProductId = P.Id
+ JOIN Feedbacks AS F ON P.Id = F.ProductId
+ WHERE F.Rate BETWEEN 5 AND 8
+ GROUP BY D.[Name], I.[Name], P.[Name]
+ ORDER BY DistributorName, IngredientName, ProductName
+
 
  -- 10.
+ SELECT
+ C.[Name] AS CountryName
+ ,D.[Name] AS DisributorName
+ FROM Countries AS C
+ JOIN Distributors AS D ON D.CountryId = C.Id
+ JOIN Ingredients AS I ON I.DistributorId = D.Id
+ GROUP BY C.[Name], D.[Name]
+ ORDER BY CountryName, DisributorName
+
  
  -- Section 4. Programmability (20 pts)
 
