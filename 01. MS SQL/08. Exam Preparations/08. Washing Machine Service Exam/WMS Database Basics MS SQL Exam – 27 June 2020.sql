@@ -148,43 +148,128 @@ SELECT
 CONCAT(M.FirstName, ' ', M.LastName) AS Available 
 FROM Mechanics AS M
 JOIN Jobs AS J ON J.MechanicId = M.MechanicId
-WHERE (J.[Status] != 'In Progress') OR (J.[Status] IS NULL)
+WHERE ((J.[Status] != 'In Progress') 
+		OR (J.[Status] IS NULL))
+		AND (M.MechanicId NOT IN (SELECT MechanicId
+									FROM Jobs 
+									WHERE Jobs.[Status] = 'In Progress'))
 GROUP BY M.FirstName, M.LastName, M.MechanicId
 ORDER BY M.MechanicId
 
  -- 9.	
 SELECT
 J.JobId AS JobId
-,SUM(P.Price) Total
+,ISNULL(SUM(P.Price * Quantity), 0) Total
 FROM Jobs AS J
-JOIN Orders AS O ON O.JobId = J.JobId
-JOIN OrderParts AS OP ON O.OrderId = OP.OrderId
-JOIN Parts AS P ON OP.PartId = P.PartId
+LEFT JOIN Orders AS O ON O.JobId = J.JobId
+LEFT JOIN OrderParts AS OP ON O.OrderId = OP.OrderId
+LEFT JOIN Parts AS P ON OP.PartId = P.PartId
 WHERE J.[Status] = 'Finished'
 GROUP BY J.JobId
 ORDER BY Total DESC, J.JobId ASC
 
 
  -- 10.
+SELECT
+P.PartId
+,P.[Description]
+,PN.Quantity AS [Required]
+,P.StockQty AS [In Stock] 
+,IIF(O.Delivered = 'False', OP.Quantity, 0) AS Ordered
+FROM Parts AS P 
+LEFT JOIN PartsNeeded AS PN ON P.PartId = PN.PartId
+LEFT JOIN Jobs AS J ON PN.JobId = J.JobId
+LEFT JOIN OrderParts AS OP ON P.PartId = OP.PartId
+LEFT JOIN Orders AS O ON J.JobId = O.JobId
+    WHERE J.[Status] != 'Finished' AND P.StockQty < PN.Quantity AND O.Delivered IS NULL
+ ORDER BY P.PartId
+
  
  -- Section 4. Programmability (20 pts)
 
  -- 11.	Create a user-defined function
 GO
-CREATE FUNCTION  ( )
-RETURNS 
+CREATE FUNCTION udf_GetCost (@JobId int)
+RETURNS DECIMAL (15, 2)
 AS
 BEGIN
-RETURN 
-
+ DECLARE @Result MONEY = (SELECT
+	SUM(P.Price * Quantity) AS Result
+	FROM Jobs AS J
+	JOIN Orders AS O ON O.JobId = J.JobId
+	JOIN OrderParts AS OP ON O.OrderId = OP.OrderId
+	JOIN Parts AS P ON OP.PartId = P.PartId
+	WHERE J.JobId = @JobId)
+		IF(@Result IS NULL)
+		BEGIN
+			RETURN 0
+		END
+RETURN @Result
 END
 GO
 
 
 ---- 12.	Create a stored procedure
-CREATE PROC  ( )
+CREATE PROC usp_PlaceOrder(@jobId INT, @partSerialNumber VARCHAR(50), @quantity INT)
 AS
-BEGIN 
+	IF(@quantity <= 0)
+		THROW 50012, 'Part quantity must be more than zero!', 1;
 
-END
+	DECLARE @jobIdVerified INT = (SELECT TOP (1) JobId 
+									FROM Jobs 
+									WHERE JobId = @jobId);
+
+	IF(@jobIdVerified IS NULL)
+		THROW 50013, 'Job not found!', 1;
+
+	DECLARE @jobStatus VARCHAR(11) = (SELECT TOP (1) [Status] 
+										FROM Jobs 
+										WHERE JobId = @jobIdVerified);
+	
+	IF(@jobStatus = 'Finished')
+		THROW 50011, 'This job is not active!', 1;
+
+	DECLARE @partIdVerified INT = (SELECT TOP (1) PartId 
+									 FROM Parts 
+									WHERE SerialNumber = @partSerialNumber);
+
+	IF(@partIdVerified IS NULL)
+		THROW 50014, 'Part not found!', 1;
+
+	DECLARE @orderId INT = (SELECT OrderId 
+							  FROM Orders
+							 WHERE JobId = @jobIdVerified AND IssueDate IS NULL);
+
+	IF(@orderId IS NULL)
+	BEGIN
+		INSERT INTO Orders (JobId, IssueDate, Delivered) VALUES
+			(@jobIdVerified, NULL, 0);
+
+		DECLARE @newOrderId INT = (SELECT OrderId 
+									 FROM Orders 
+									WHERE JobId = @jobIdVerified AND IssueDate IS NULL);
+
+		INSERT INTO OrderParts (OrderId, PartId, Quantity) VALUES
+			(@newOrderId, @partIdVerified, @quantity);
+	END
+
+	ELSE
+	BEGIN
+		DECLARE @partQuantity INT = (SELECT Quantity 
+									   FROM OrderParts 
+									  WHERE OrderId = @orderId AND PartId = @partIdVerified);
+
+		IF(@partQuantity IS NULL)
+		BEGIN
+			INSERT INTO OrderParts (OrderId, PartId, Quantity) VALUES
+				(@orderId, @partIdVerified, @quantity);
+		END
+
+		ELSE
+		BEGIN
+			 UPDATE OrderParts
+				SET Quantity += @quantity
+			  WHERE OrderId = @orderId AND PartId = @partIdVerified;
+		END
+	END
 GO
