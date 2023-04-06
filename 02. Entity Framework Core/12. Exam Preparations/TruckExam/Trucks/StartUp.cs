@@ -1,14 +1,14 @@
-﻿namespace Trucks
+﻿using System;
+using System.IO;
+using System.Globalization;
+
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+
+using Trucks.Data;
+
+namespace Trucks
 {
-    using System;
-    using System.IO;
-    using System.Globalization;
-
-    using AutoMapper;
-    using Microsoft.EntityFrameworkCore;
-
-    using Data;
-
     public class StartUp
     {
         public static void Main()
@@ -21,12 +21,12 @@
 
             ImportEntities(context, projectDir + @"Datasets/", projectDir + @"ImportResults/");
 
-            //ExportEntities(context, projectDir + @"ExportResults/");
+            ExportEntities(context, projectDir + @"ExportResults/");
 
-            //using (var transaction = context.Database.BeginTransaction())
-            //{
-            //    transaction.Rollback();
-            //}
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                transaction.Rollback();
+            }
         }
 
         private static void ImportEntities(TrucksContext context, string baseDir, string exportDir)
